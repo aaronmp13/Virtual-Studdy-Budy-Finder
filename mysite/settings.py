@@ -39,6 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    'allauth', #all 4 of these are for google login
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google', 
 ]
 
 MIDDLEWARE = [
@@ -101,6 +107,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = ( #for google login
+ 'django.contrib.auth.backends.ModelBackend',
+ 'allauth.account.auth_backends.AuthenticationBackend',
+ )
+
+SOCIALACCOUNT_PROVIDERS = { #for google login
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -115,6 +137,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_ID = 2 #This needs to correspond with the correct site in the Sites tab of Admin
+
+LOGIN_REDIRECT_URL = '/virtualstudybuddy' #Where to redirect after successful google login
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -123,4 +148,3 @@ STATIC_URL = '/static/'
 
 
 django_heroku.settings(locals())
-
