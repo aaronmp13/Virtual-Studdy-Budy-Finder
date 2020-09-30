@@ -137,7 +137,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-SITE_ID = 2 #This needs to correspond with the correct site in the Sites tab of Admin
+SITE_ID = 6 #This needs to correspond with the correct site in the Sites tab of Admin, switch to 2 for local server
 
 LOGIN_REDIRECT_URL = '/virtualstudybuddy' #Where to redirect after successful google login
 
