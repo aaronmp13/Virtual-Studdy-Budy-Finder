@@ -15,14 +15,12 @@
   </head>
 
 <body>
-	{% if profile_content %}
+	{% if profile.username %}
 	<section id="title">
-		{% for content in profile_content %}
-			<a class="navbar-brand">{{content.name}}</a>
-			{{content.gender}}
-			{{content.major}}
-			{{content.age}}
-			{{content.description}}
-		{% endfor %}
+			<a class="navbar-brand">{{profile.username}}</a>
+			{{profile.gender}}
+			{{profile.major}}
+			{{profile.age}}
+			{{profile.description}}
 	{% endif %}
 </body>

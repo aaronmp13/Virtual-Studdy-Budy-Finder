@@ -12,13 +12,12 @@ from django.http import HttpRequest
 from django.http import HttpResponse
 from .models import Profile
 
-class ProfileView(generic.ListView):
+class ProfileView(generic.DetailView):
 	model = Profile
 	template_name = 'virtualstuddybuddy/profile.html'
-	context_object_name = 'profile_content'
-
-def index(request):
-    return render(request, 'virtualstuddybuddy/index.html')
 
 def get_queryset(self):
 	return Profile.objects.all()
+
+def index(request):
+    return render(request, 'virtualstuddybuddy/index.html')
