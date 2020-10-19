@@ -1,0 +1,14 @@
+language: python
+python:
+- '3.8'
+install:
+- pip install -r requirements-travis.txt
+script:
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: T9fb5C9cIVEvLCgblbPYG6ie3LWt1QiorUd1mG/g0gJtLcK9hjPK7netm8k30OhYiBTLuzbSmyHREidghbRCdSxXpypiW14dy7JwzjCwb0VcXq23wXPL8vLmASp3vXpflW/3/ooF3qnVqC4SWxZEOYd1bqmwM8qp36W7mKWFyAhiQ8VxSPLcoNDS3wbgnu7XFUlyt1mUdJl0l92gvHCMMGJms0VaQSzzK6xNoUqwKfJ8qCnOs+F/XhTJy6KGRNhh7qJcufxshTHWKPAxDYVYmnLh7gc4J9LRWQ4goQqACLXl6D58fIDXMojDr/EqC5OqNId4tcoGKu6WpySvnNxTtMpUcFGel8GFjptPO02XAjR3NV/vp5gNl+RLg4Kp+vkueF7UDpAexakWm4rRbjg4HTZ21bHiSqgTk/qR2dMYrFLVNvd1mwuUfSfcavM80uYwScb2RE4N3V5qILfSWM4UTmNFYTKx6DsbSp8jcyS0LdyzCAJ05wG07GdVNxxzDp7LLfch8qcdKDo8OSrIvaUB3SD3NzFmt7Nv6dO7YjxgEc1ZSghu4p79iCr1eYat9JrZx/Ctgp8lENO2/L4lqM3ygOaNoDpvq95xASb3MqkLpvyjNkwTA79uYjel42MlIHoVGAUkoFA5RG1NFrmk/ECFC2siH5gl7dsh6CHWEmFallk=
+  app: caamcomputing
+  on:
+    repo: uva-cs3240-f20/project-2-08
