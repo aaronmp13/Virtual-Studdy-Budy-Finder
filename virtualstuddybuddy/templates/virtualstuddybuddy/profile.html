@@ -1,4 +1,4 @@
-{% load static %}
+  {% load static %}
 {% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -17,7 +17,8 @@
 <body>
 	{% if profile.username %}
 	<section id="title">
-			<a class="navbar-brand">{{profile.username}}</a>
+      <a class="navbar-brand">{{profile.username}}</a>
+      {{profile.name}}
 			{{profile.gender}}
 			{{profile.major}}
 			{{profile.age}}

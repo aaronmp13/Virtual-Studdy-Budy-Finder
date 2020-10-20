@@ -4,10 +4,10 @@ from django.db import models
 
 class Profile(models.Model):
 	username = models.CharField(max_length=20, default="User X")
-	name = models.CharField(max_length=50)
-	gender = models.CharField(max_length=200)
-	major = models.CharField(max_length=200)
-	age = models.IntegerField()
-	description = models.CharField(max_length=200)
-	picture = models.ImageField(upload_to='uploads/')
+	name = models.CharField(max_length=50, default="Name X")
+	gender = models.CharField(max_length=200, default="Gender X")
+	major = models.CharField(max_length=200, default="Major X")
+	age = models.IntegerField(default = 0)
+	description = models.CharField(max_length=200, default="Description X")
+	#picture = models.ImageField(upload_to='uploads/')
 
