@@ -9,5 +9,5 @@ class Profile(models.Model):
 	major = models.CharField(max_length=200, default="Major X")
 	age = models.IntegerField(default = 0)
 	description = models.CharField(max_length=200, default="Description X")
-	#picture = models.ImageField(upload_to='uploads/')
+	picture = models.ImageField(upload_to='uploads/')
 
