@@ -35,7 +35,7 @@ def signup(request): #How we handle signups and logins
 				return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/') #Direct them to their profile page
 			else: 														#If the user hasn't filled out a profile yet
 				return render(request, 'virtualstuddybuddy/signup.html') 	#Direct them to the signup form
-	except:
+	except(ValueError):
 		return render(request, 'virtualstuddybuddy/signup.html', {
 			'error_message': "Invalid Input",
 		})
