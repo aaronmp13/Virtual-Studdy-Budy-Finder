@@ -15,12 +15,79 @@
   </head>
 
 <body>
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="">VirtualStudyBuddy</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              {% if user.is_authenticated %}
+                <a class="nav-link" href="">Welcome , {{ user.username }} !</a> <!--google login-->
+              {% else %}
+                <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
+              {% endif %}
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Find Buddies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">View Sessions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' 1 %}">View Profile</a>
+            </li>
+        </ul>
+     </div>
+    </nav>
+<div class="profile_page">
+    <div class="profile_username">
 	{% if profile.username %}
-	<section id="title">
-			<a class="navbar-brand">{{profile.username}}</a>
-			{{profile.gender}}
-			{{profile.major}}
-			{{profile.age}}
-			{{profile.description}}
+
+        <h1 class="centered"> Welcome to {{profile.name}}'s page! </h1>
+        <div class="row imgAndDesc zeroMarg">
+            <div class="col-lg-2 col-md-12 col-sm-12 profPicDiv">
+                <img class="profile_pic" src="{% static "virtualstuddybuddy/aliBitmoji.png" %}" alt="Profile Picture">
+            </div>
+
+            <div class="col-lg-8 col-md-12 col-sm-12 desc">
+                <h6>Bio</h6>
+                <span>{{profile.description}}</span>
+            </div>
+
+        </div>
+        <div class="row zeroMarg">
+            <div class="col-lg-2 col-md-12 cold-sm-12 userDiv">
+                <h6 class="usernameTag">Username</h6>
+            <span class="username">@{{profile.username}}</span>
+                <button type="button" class="btn btn-dark btn-lg editBtn">Edit Profile</button>
+            </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 desc">
+                <h6>Coursework</h6>
+                <span>Placeholder for Coursework *Note: Add Coursework field to Profile model later</span>
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 desc">
+                <h6>Attributes</h6>
+                <ul>
+                    <li>{{profile.major}}</li>
+                    <li>{{profile.gender}}</li>
+                    <li>{{profile.age}} Years Old</li>
+                    <li>Class Of '22</li>
+                </ul>
+        </div>
+
+        </div>
+
+
+        <div class="row zeroMarg lastEle">
+
+        </div>
+
+
 	{% endif %}
+      </div>
+</div>
 </body>
