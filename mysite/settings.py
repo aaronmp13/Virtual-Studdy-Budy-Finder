@@ -139,7 +139,7 @@ USE_TZ = True
 
 SITE_ID = 7 #This needs to correspond with the correct site in the Sites tab of Admin
 
-LOGIN_REDIRECT_URL = '/virtualstudybuddy' #Where to redirect after successful google login
+LOGIN_REDIRECT_URL = '/virtualstudybuddy/signup/' #Where to redirect after successful google login
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

@@ -13,6 +13,19 @@ h1{
   line-height: 1.5;
 }
 
+
+.centered{
+    padding-top:3%;
+    text-align: center;
+    color: blueviolet;
+    /*Welcome tag*/
+}
+
+.usernameTag{
+    text-align: center;
+    color: blueviolet;
+}
+
 body{
     background-color: blueviolet;
 }
@@ -35,4 +48,78 @@ body{
 
 .btn{
     margin: 2%;
+}
+
+.profile_username{
+    /*background-color: white;*/
+}
+
+.profile_page{
+    background-image: url("https://cdn.pixabay.com/photo/2017/06/04/18/14/marble-2371776__340.jpg");
+    /*background-color: blueviolet;*/
+    color:black;
+
+}
+
+.profile_pic{
+    max-width:75%;
+    height: auto;
+    background-color: blueviolet;
+    border-radius: 50%;
+    margin-top: 12%;
+    text-align: center;
+    border: 5px solid #555;
+}
+
+.imgAndDesc{
+    padding-top:15px;
+}
+
+.profPicDiv{
+    text-align: center;
+}
+
+.profAttrib{
+    text-align: center;
+}
+
+.desc{
+    font-family: "Montserrat";
+    font-weight:bold;
+    margin-top: 1%;
+    margin-left:1%;
+    border: 5px solid #555;
+    background-color: blueviolet;
+    color: white;
+    font-size:1.5rem;
+}
+
+.username{
+    color:white;
+    background-color: blueviolet;
+    border: 5px solid #555;
+    text-align: center;
+}
+
+.userDiv{
+    text-align: center;
+    margin-top:2%;
+}
+
+.lastEle{
+    padding-bottom:120px;
+}
+
+.zeroMarg{
+    margin-left: 0;
+    margin-right:0;
+}
+
+.inlineblock{
+    margin-left:10%;
+    margin-right:10%;
+}
+
+.editBtn{
+    margin-top:20%;
 }
