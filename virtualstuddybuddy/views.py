@@ -24,7 +24,7 @@ def signup(request): #How we handle signups and logins
 		if request.method == 'POST': 								#If a person filled out the sign up form
 			profile1 = request.POST
 			#print(comment1)
-			p = Profile(username=request.user.get_username(), name=profile1['name'], gender=profile1['gender'], major=profile1['major'], age=profile1['age'], description=profile1['description'])
+			p = Profile(username=request.user.get_username(), name=profile1['name'], gender=profile1['gender'], major=profile1['major'], age=int(profile1['age']), description=profile1['description'])
 			p.save()
 			qs = Profile.objects.all()
 			return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
