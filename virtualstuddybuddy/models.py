@@ -11,3 +11,5 @@ class Profile(models.Model):
 	description = models.CharField(max_length=2000, default="Description X")
 	picture = models.ImageField(upload_to='uploads/')
 
+	def __str__(self):
+		return self.username, self.name, self.gender, self.major, self.age, self.description
