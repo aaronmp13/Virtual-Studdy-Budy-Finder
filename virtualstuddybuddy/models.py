@@ -8,6 +8,6 @@ class Profile(models.Model):
 	gender = models.CharField(max_length=200)
 	major = models.CharField(max_length=200)
 	age = models.IntegerField(default=0)
-	description = models.CharField(max_length=200, default="")
+	description = models.CharField(max_length=2000, default="")
 	picture = models.ImageField(upload_to='uploads/')
 
