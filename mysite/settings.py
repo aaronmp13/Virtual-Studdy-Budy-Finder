@@ -146,4 +146,7 @@ LOGIN_REDIRECT_URL = '/virtualstudybuddy/signup/' #Where to redirect after succe
 
 STATIC_URL = '/static/'
 
-django_heroku.settings(locals())
+import os
+if '/app' in os.environ['HOME']:
+    import django_heroku
+    django_heroku.settings(locals())
