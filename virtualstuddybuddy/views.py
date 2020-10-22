@@ -33,12 +33,11 @@ def signup(request): #How we handle signups and logins
 					"Invalid Input"
 					)
 
-			if p.is_valid():
-				p.save()
-				qs = Profile.objects.all()
-				return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
-			else:
-				return render(request, 'virtualstuddybuddy/signup.html')
+	
+			p.save()
+			qs = Profile.objects.all()
+			return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
+			
 		else: 														#If a person just logged in
 			qs = Profile.objects.all()
 			if qs.filter(username=request.user.get_username()).exists(): 				#If user is already signed up
