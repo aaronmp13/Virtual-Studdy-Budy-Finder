@@ -32,10 +32,8 @@ def signup(request): #How we handle signups and logins
 				raise DataError(
 					"Invalid Input"
 					)
-
 	
 			p.save()
-			qs = Profile.objects.all()
 			return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
 			
 		else: 														#If a person just logged in
@@ -50,5 +48,22 @@ def signup(request): #How we handle signups and logins
 			'error_message': "Invalid Input",
 		})
 
-
-
+def editProfile(request):
+	try:
+		p = Profile.objects.all().filter(username=request.user.get_username())[0]
+		if request.method == 'POST':
+			if p.name == '' or p.gender == '' or p.major == '' or p.age == '' or p.description == '':
+				raise DataError(
+					"Invalid Input"
+					)
+			profile1 = request.POST
+			p.delete()
+			p = Profile(username=request.user.get_username(), name=profile1['name'], gender=profile1['gender'], major=profile1['major'], age=profile1['age'], description=profile1['description'])
+			p.save()
+			return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
+		else:
+			return render(request, 'virtualstuddybuddy/editProfile.html', context = {"profile": p})
+	except:
+		return render(request, 'virtualstuddybuddy/editProfile.html', {
+			'error_message': "Invalid Input",
+		})
