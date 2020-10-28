@@ -1,7 +1,8 @@
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, Client
 from django.db import DataError
 from django.urls import reverse
 from virtualstuddybuddy.models import Profile
+from django.contrib.auth.models import User
 # Create your tests here.
 
 class ProfileTestCases(TestCase):
@@ -41,6 +42,11 @@ class ProfileTestCases(TestCase):
 class ProfileViewTestCases(TestCase):
 	def setUp(self):
 		Profile.objects.create() #pk=1, default
+		user = User.objects.create(username="test")
+		user.set_password("test")
+		user.is_active = True
+		user.save()
+		self.client.login(username="test", password="test")
 
 	## Test Signup Template/URL
 	def test_signup(self):
@@ -68,3 +74,61 @@ class ProfileViewTestCases(TestCase):
 	def test_profile_template(self):
 		response = self.client.get('http://caamcomputing.herokuapp.com/virtualstudybuddy/profile/1/')
 		self.assertTemplateUsed(response, 'virtualstuddybuddy/profile.html')
+	
+class SignUpTests(TestCase):
+	def setUp(self):
+		user = User.objects.create(username="test")
+		user.set_password("test")
+		user.is_active = True
+		user.save()
+		self.client.login(username="test", password="test")
+
+		self.response1 = self.client.post(reverse('signup'), {'name': 'test', 'gender': 'male', 'age': 21, 'major':'cs', 'description':'test descr'})
+		self.response2 = self.client.post(reverse('signup'), {'name': 'empty', 'gender': '', 'age': 21, 'major':'cs', 'description':'test descr'})
+		self.response3 = self.client.get(reverse('signup'))		
+
+	def test_good_signup(self):
+		p = Profile.objects.all()[0]
+		self.assertEqual(p.name, 'test')
+		self.assertEqual(p.gender, 'male')
+		self.assertEqual(p.age, 21)
+		self.assertEqual(p.major, 'cs')
+		self.assertEqual(p.description, 'test descr')
+
+	def test_bad_signup(self):
+		self.assertEqual(self.response2.context['error_message'], 'Invalid Input')
+	
+	def test_get_profile(self):
+		self.assertEqual(self.response3.url, "/virtualstudybuddy/profile/1/")
+
+class EditProfileTests(TestCase):
+	def setUp(self):
+		user = User.objects.create(username="test")
+		user.set_password("test")
+		user.is_active = True
+		user.save()
+		self.client.login(username="test", password="test")
+		self.client.post(reverse('signup'), {'name': 'test', 'gender': 'male', 'age': 21, 'major':'cs', 'description':'test descr'})
+
+		self.response1 = self.client.post(reverse('editProfile'), {'name': 'test', 'gender': 'male', 'age': 21, 'major':'cs', 'description':'editted descr'})
+		self.response2 = self.client.post(reverse('editProfile'), {'name': 'test', 'gender': '', 'age': 21, 'major':'cs', 'description':'test descr'})
+		self.response3 = self.client.get(reverse('editProfile'))
+
+	def test_good_edit(self):
+		p = Profile.objects.all()[0]
+		self.assertEqual(p.name, 'test')
+		self.assertEqual(p.gender, 'male')
+		self.assertEqual(p.age, 21)
+		self.assertEqual(p.major, 'cs')
+		self.assertEqual(p.description, 'editted descr')
+	
+	def test_bad_edit(self):
+		self.assertEqual(self.response2.context['error_message'], 'Invalid Input')
+
+	def test_get_editProfile(self):
+		self.assertEqual(str(self.response3.context['profile']), "test test male cs 21 editted descr")
+		#print("response3",self.response3.wsgi_request)
+		self.assertEqual(str(self.response3.wsgi_request), "<WSGIRequest: GET '/virtualstudybuddy/editProfile/'>")
+		self.assertTemplateUsed(self.response3, 'virtualstuddybuddy/editProfile.html')
+		self.assertEqual(self.response3.status_code, 200)
+

@@ -23,6 +23,9 @@ def index(request):
 
 def signup(request): #How we handle signups and logins
 	try:
+		if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+			return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
+		
 		if request.method == 'POST': #If a person filled out the sign up form
 			profile1 = request.POST
 			#print(comment1)
@@ -34,9 +37,8 @@ def signup(request): #How we handle signups and logins
 					)
 	
 			p.save()
-			return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
-			
-		else: 														#If a person just logged in
+			return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')	
+		else: 														#If a person just logged in		
 			qs = Profile.objects.all()
 			if qs.filter(username=request.user.get_username()).exists(): 				#If user is already signed up
 				p = qs.filter(username=request.user.get_username())[0]
@@ -49,14 +51,15 @@ def signup(request): #How we handle signups and logins
 		})
 
 def editProfile(request):
+	p = Profile.objects.all().filter(username=request.user.get_username())[0]
 	try:
-		p = Profile.objects.all().filter(username=request.user.get_username())[0]
 		if request.method == 'POST':
-			if p.name == '' or p.gender == '' or p.major == '' or p.age == '' or p.description == '':
+			profile1 = request.POST
+			if profile1['name'] == '' or profile1['gender'] == '' or profile1['major'] == '' or profile1['age'] == '' or profile1['description'] == '':
 				raise DataError(
 					"Invalid Input"
 					)
-			profile1 = request.POST
+
 			p.delete()
 			p = Profile(username=request.user.get_username(), name=profile1['name'], gender=profile1['gender'], major=profile1['major'], age=profile1['age'], description=profile1['description'])
 			p.save()
@@ -64,6 +67,6 @@ def editProfile(request):
 		else:
 			return render(request, 'virtualstuddybuddy/editProfile.html', context = {"profile": p})
 	except:
-		return render(request, 'virtualstuddybuddy/editProfile.html', {
-			'error_message': "Invalid Input",
+		return render(request, 'virtualstuddybuddy/editProfile.html', context = {
+			"profile": p, 'error_message': "Invalid Input",
 		})
