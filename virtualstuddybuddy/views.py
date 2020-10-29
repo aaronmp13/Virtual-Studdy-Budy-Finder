@@ -70,3 +70,6 @@ def editProfile(request):
 		return render(request, 'virtualstuddybuddy/editProfile.html', context = {
 			"profile": p, 'error_message': "Invalid Input",
 		})
+
+def get_profiles(request):
+	return render(request, 'virtualstuddybuddy/viewAllProfiles.html', context={'allProfiles': Profile.objects.all()})

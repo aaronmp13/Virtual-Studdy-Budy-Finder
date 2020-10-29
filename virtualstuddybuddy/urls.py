@@ -10,5 +10,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')), #google login
     path('signup/', views.signup, name = "signup"),
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'), #profile page
-    path('editProfile/', views.editProfile, name = "editProfile")
+    path('editProfile/', views.editProfile, name = "editProfile"),
+    path('viewProfiles/', views.get_profiles, name="viewProfiles")
 ]
