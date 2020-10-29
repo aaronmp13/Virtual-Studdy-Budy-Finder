@@ -52,9 +52,9 @@
 
         <h3 style="text-align:center">Find friends to study with!</h3>
       <div class="d-flex justify-content-center">
-      {% if latest_profile_list %}
+      {% if allProfiles %}
           <ul class = "list-group">
-          {% for profile in latest_profile_list %}
+          {% for profile in allProfiles %}
               <li class="list-group-item"><a href="">{{ profile.name }}</a></li>
           {% endfor %}
           </ul>
