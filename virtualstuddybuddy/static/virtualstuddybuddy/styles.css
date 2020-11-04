@@ -74,12 +74,31 @@ body{
 .all_avatars{
     max-width:35%;
     height: auto;
-    background-color: blueviolet;
     border-radius: 50%;
-    margin-top: 12%;
+    margin-top: 5%;
+    margin-bottom: 5%;
     text-align: center;
     border: 5px solid #555;
 }
+
+.find_friends{
+    margin-top:2%;
+    margin-bottom:2%;
+}
+
+.username_link{
+    color:lightgray;
+}
+
+.username_link:hover{
+    color:white;
+    text-decoration: none;
+}
+
+hr{
+
+}
+
 
 .all_attributes{
     margin-top: 2.5%;

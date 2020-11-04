@@ -12,5 +12,6 @@ urlpatterns = [
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'), #profile page
     path('editProfile/', views.editProfile, name = "editProfile"),
     path('viewProfiles/', views.get_profiles, name="viewProfiles"),
-    path('viewProfiles/redirect/<int:pk>/', views.ProfileView.as_view(), name='profile')  # profile page
+    path('viewProfiles/redirect/<int:pk>/', views.ProfileView.as_view(), name='profile'),  # probably don't need this anymore
+    path('match/<int:pk>', views.manual_match, name="manualMatch")
 ]

@@ -74,3 +74,8 @@ def editProfile(request):
 def get_profiles(request):
 	return render(request, 'virtualstuddybuddy/viewAllProfiles.html', context={'allProfiles': Profile.objects.all()})
 
+def manual_match(request, pk):
+	#matcher=Profile.objects.all()[0]
+	matcher = Profile.objects.all().filter(username=request.user.get_username())[0]
+	matchee=get_object_or_404(Profile, pk=pk)
+	return render(request, 'virtualstuddybuddy/match.html', context={'matcher': matcher, 'matchee': matchee})
