@@ -73,3 +73,4 @@ def editProfile(request):
 
 def get_profiles(request):
 	return render(request, 'virtualstuddybuddy/viewAllProfiles.html', context={'allProfiles': Profile.objects.all()})
+

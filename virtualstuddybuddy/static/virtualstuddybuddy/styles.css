@@ -71,6 +71,23 @@ body{
     border: 5px solid #555;
 }
 
+.all_avatars{
+    max-width:35%;
+    height: auto;
+    background-color: blueviolet;
+    border-radius: 50%;
+    margin-top: 12%;
+    text-align: center;
+    border: 5px solid #555;
+}
+
+.all_attributes{
+    margin-top: 2.5%;
+}
+
+.padding_top{
+    padding-top:15px;
+}
 .imgAndDesc{
     padding-top:15px;
 }

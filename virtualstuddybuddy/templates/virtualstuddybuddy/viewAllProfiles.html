@@ -51,17 +51,79 @@
 
 
         <h3 style="text-align:center">Find friends to study with!</h3>
-      <div class="d-flex justify-content-center">
+        <hr>
       {% if allProfiles %}
-          <ul class = "list-group">
+      <div class="row">
+        <div class="col-lg-2 col-md-4 col-sm-4">
+          <h4>Avatar</h4>
+        </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-4">
+        <h4>Username</h4>
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-4">
+        <h4>Name</h4>
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-4">
+        <h4>Major</h4>
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-4">
+        <h4>Age</h4>
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-4">
+        <h4>Gender</h4>
+      </div>
+
+
+    </div>
+
+
+
           {% for profile in allProfiles %}
-              <li class="list-group-item"><a href="">{{ profile.name }}</a></li>
+              <div class="row">
+
+                <div class="col-lg-2 col-md-2 col-sm-2 ">
+                  <img class="all_avatars" src="{% static "virtualstuddybuddy/aliBitmoji.png" %}" alt="Profile Picture">
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                <a href="/virtualstudybuddy/profile/{{profile.pk}}/"><span class="">{{profile.username}}</span></a>
+                </div>
+
+              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                <span class="padding_top">{{profile.name}}</span>
+              </div>
+
+              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                <span>{{profile.major}}</span>
+              </div>
+
+              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                <span>{{profile.age}}</span>
+              </div>
+
+              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                <span>{{profile.gender}}</span>
+              </div>
+
+            </div>
+
+              <hr>
+
           {% endfor %}
-          </ul>
+
+
+
+
       {% else %}
           <p>Nobody is looking for study buddies right now, please check back later.</p>
       {% endif %}
-      </div>
+
+
 
   </body>
 </html>
