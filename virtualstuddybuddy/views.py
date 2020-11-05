@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic.list import ListView
 from django.http import HttpRequest
 from django.db import DataError
+from .forms import *
 
 # Create your views here.
 
@@ -22,54 +23,47 @@ def index(request):
     return render(request, 'virtualstuddybuddy/index.html')
 
 def signup(request): #How we handle signups and logins
-	try:
-		if not request.user.is_authenticated: #redirects to login if they haven't done that yet
-			return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
-		
-		if request.method == 'POST': #If a person filled out the sign up form
-			profile1 = request.POST
-			#print(comment1)
-			p = Profile(username=request.user.get_username(), name=profile1['name'], gender=profile1['gender'], major=profile1['major'], age=profile1['age'], description=profile1['description'])
-			
-			if p.name == '' or p.gender == '' or p.major == '' or p.age == '' or p.description == '':
-				raise DataError(
-					"Invalid Input"
-					)
+	if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+		return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
 	
+	if request.method == 'POST': #If a person filled out the sign up form
+		form = ProfileForm(request.POST, request.FILES)
+		p = None
+		#p = form.save()
+		if form.is_valid():
+			p = form.save()
+			p.username = request.user.get_username()
 			p.save()
-			return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')	
-		else: 														#If a person just logged in		
-			qs = Profile.objects.all()
-			if qs.filter(username=request.user.get_username()).exists(): 				#If user is already signed up
-				p = qs.filter(username=request.user.get_username())[0]
-				return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/') #Direct them to their profile page
-			else: 														#If the user hasn't filled out a profile yet
-				return render(request, 'virtualstuddybuddy/signup.html') 	#Direct them to the signup form
-	except:
-		return render(request, 'virtualstuddybuddy/signup.html', {
-			'error_message': "Invalid Input",
-		})
+		else: #If the form is invalid, just make them fill it out again
+			print(form.errors)
+			form = ProfileForm(request.POST, request.FILES)														
+			return render(request, 'virtualstuddybuddy/signup.html', {'form':form})
+
+		return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')	
+	else: 	#If a person just logged in		
+		qs = Profile.objects.all()
+		if qs.filter(username=request.user.get_username()).exists(): 				#If user is already signed up
+			p = qs.filter(username=request.user.get_username())[0]
+			return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/') #Direct them to their profile page
+		else: 	
+			form = ProfileForm()											#If the user hasn't filled out a profile yet
+			return render(request, 'virtualstuddybuddy/signup.html', {'form':form}) 	#Direct them to the signup form
 
 def editProfile(request):
 	p = Profile.objects.all().filter(username=request.user.get_username())[0]
-	try:
-		if request.method == 'POST':
-			profile1 = request.POST
-			if profile1['name'] == '' or profile1['gender'] == '' or profile1['major'] == '' or profile1['age'] == '' or profile1['description'] == '':
-				raise DataError(
-					"Invalid Input"
-					)
-
-			p.delete()
-			p = Profile(username=request.user.get_username(), name=profile1['name'], gender=profile1['gender'], major=profile1['major'], age=profile1['age'], description=profile1['description'])
-			p.save()
-			return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
+	if request.method == 'POST':
+		form = ProfileForm(request.POST, request.FILES, instance = p)
+		if form.is_valid():
+			form.save()
 		else:
-			return render(request, 'virtualstuddybuddy/editProfile.html', context = {"profile": p})
-	except:
-		return render(request, 'virtualstuddybuddy/editProfile.html', context = {
-			"profile": p, 'error_message': "Invalid Input",
-		})
+			raise DataError(
+				form.errors
+				)
+		return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
+	else:
+		initialDict = {f.name:getattr(p, f.name) for f in Profile._meta.get_fields()}
+		form = ProfileForm(initial=initialDict)
+		return render(request, 'virtualstuddybuddy/editProfile.html', context = {"form": form})
 
 def get_profiles(request):
 	return render(request, 'virtualstuddybuddy/viewAllProfiles.html', context={'allProfiles': Profile.objects.all()})

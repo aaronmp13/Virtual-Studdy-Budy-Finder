@@ -16,29 +16,9 @@
   </head>
 
   <body>
-	<form action="{% url 'signup'%}" method="post" role= "form" > <!--calls the signup function after the submit button is pressed-->
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="nameInput">Name</label>
-            <textarea type="name" class="form-control" id="name" rows = "1" placeholder="Enter Name" name = "name"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="genderInput">Gender</label>
-            <textarea type="gender" class="form-control" id="gender" rows = "1" placeholder="Enter Gender" name = "gender"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="majorInput">Major</label>
-            <textarea type="major" class="form-control" id="major" rows = "1" placeholder="Enter Major" name = "major"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="ageInput">Age</label>
-            <textarea type="age" class="form-control" id="age" rows = "1" placeholder="Enter Age" name = "age"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="descriptionInput">Description</label>
-            <textarea type="description" class="form-control" id="description" rows = "3" placeholder="Enter Description" name = "description"></textarea>
-        </div>
-    
-        <button type="submit" class="btn btn-primary">Submit</button>
+    <form method = "post" enctype="multipart/form-data"> 
+        {% csrf_token %} 
+        {{ form.as_p }} 
+        <button type="submit">Submit</button> 
     </form> 
 </body>
