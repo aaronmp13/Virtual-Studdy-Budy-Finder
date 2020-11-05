@@ -35,7 +35,7 @@ def signup(request): #How we handle signups and logins
 			p.username = request.user.get_username()
 			p.save()
 		else: #If the form is invalid, just make them fill it out again
-			print(form.errors)
+			#print(form.errors)
 			form = ProfileForm(request.POST, request.FILES)														
 			return render(request, 'virtualstuddybuddy/signup.html', {'form':form})
 
@@ -56,9 +56,11 @@ def editProfile(request):
 		if form.is_valid():
 			form.save()
 		else:
-			raise DataError(
-				form.errors
-				)
+			# raise DataError(
+			# 	form.errors
+			# 	)
+			form = ProfileForm(request.POST, request.FILES)														
+			return render(request, 'virtualstuddybuddy/signup.html', {'form':form})
 		return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
 	else:
 		initialDict = {f.name:getattr(p, f.name) for f in Profile._meta.get_fields()}

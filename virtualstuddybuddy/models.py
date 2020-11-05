@@ -12,7 +12,7 @@ class Profile(models.Model):
 	description = models.CharField(max_length=2000, default="", validators = [MinLengthValidator(1), MaxLengthValidator(2000)])
 	coursework = models.CharField(max_length=2000, default="", validators = [MinLengthValidator(1), MaxLengthValidator(2000)])
 	classOf = models.IntegerField(default = 2023, validators = [MinValueValidator(2020), MaxValueValidator(2024)])
-	picture = models.ImageField(upload_to='uploads/', validators=[validate_image_file_extension], )
+	picture = models.ImageField(upload_to='uploads/', validators=[validate_image_file_extension], blank=True)
 
 	def __str__(self):
 		return self.username + " " + self.name + " " + self.gender + " " + self.major + " " + str(self.age) + " " + self.description + " " + self.coursework + " " + str(self.classOf)

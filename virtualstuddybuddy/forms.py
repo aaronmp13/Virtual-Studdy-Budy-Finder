@@ -11,5 +11,6 @@ class ProfileForm(ModelForm):
         }
 
         widgets = {
-            'description': Textarea(attrs={'rows':3})
+            'description': Textarea(attrs={'rows':3}),
+            'coursework': Textarea(attrs={'rows':3})
         }

@@ -89,7 +89,11 @@
               <div class="row">
 
                 <div class="col-lg-2 col-md-2 col-sm-2 ">
-                  <img class="all_avatars" src="{% static "virtualstuddybuddy/aliBitmoji.png" %}" alt="Profile Picture">
+                  {% if profile.picture %}
+                      <img class="all_avatars"  src="{{ profile.picture.url }}" alt="Profile Picture">
+                  {% else %}
+                      <img class="all_avatars"  src="{% static "virtualstuddybuddy/aliBitmoji.png" %}" alt="Profile Picture">
+                  {% endif %}
                 </div>
 
                 <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
