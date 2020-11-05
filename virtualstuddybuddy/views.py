@@ -78,4 +78,8 @@ def manual_match(request, pk):
 	#matcher=Profile.objects.all()[0]
 	matcher = Profile.objects.all().filter(username=request.user.get_username())[0]
 	matchee=get_object_or_404(Profile, pk=pk)
+	matchee.matches.append(matcher)
+	matcher_email=request.user.get_email_field_name()
+	matchee.matches_emails.append(matcher_email)
+
 	return render(request, 'virtualstuddybuddy/match.html', context={'matcher': matcher, 'matchee': matchee})

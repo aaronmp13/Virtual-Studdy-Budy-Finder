@@ -10,6 +10,8 @@ class Profile(models.Model):
 	age = models.IntegerField(default = 0)
 	description = models.CharField(max_length=2000, default="Description X")
 	picture = models.ImageField(upload_to='uploads/')
+	matches = []
+	matches_emails=[]
 
 	def __str__(self):
 		return self.username + " " + self.name + " " + self.gender + " " + self.major + " " + str(self.age) + " " + self.description
