@@ -132,3 +132,30 @@ class EditProfileTests(TestCase):
 		self.assertTemplateUsed(self.response3, 'virtualstuddybuddy/editProfile.html')
 		self.assertEqual(self.response3.status_code, 200)
 
+class FindBuddiesTests(TestCase):
+	def setUp(self):
+		user = User.objects.create(username="test")
+		user.set_password("test")
+		user.is_active = True
+		user.save()
+
+		user2 = User.objects.create(username="test2")
+		user2.set_password("test2")
+		user2.is_active = True
+		user2.save()
+
+		self.client.login(username="test", password="test")
+		self.client.post(reverse('signup'), {'name': 'test', 'gender': 'male', 'age': 21, 'major':'cs', 'description':'test descr'})
+
+		self.client.login(username="test2", password="test2")
+		self.client.post(reverse('signup'), {'name': 'test2', 'gender': 'male2', 'age': 212, 'major':'cs2', 'description':'test2 descr'})
+
+		self.response1 = self.client.get(reverse('manualMatch', args = [1]))
+
+	def test_HTML(self):
+		self.assertEqual(str(self.response1.context['matchee']), "test test male cs 21 test descr")
+		self.assertEqual(str(self.response1.context['matcher']), "test2 test2 male2 cs2 212 test2 descr")
+		print("response1",self.response1.wsgi_request)
+		#self.assertEqual(str(self.response3.wsgi_request), "<WSGIRequest: GET '/virtualstudybuddy/editProfile/'>")
+		self.assertTemplateUsed(self.response1, 'virtualstuddybuddy/match.html')
+		self.assertEqual(self.response1.status_code, 200)
