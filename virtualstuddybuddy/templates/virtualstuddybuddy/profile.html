@@ -70,7 +70,7 @@
             </div>
         <div class="col-lg-4 col-md-12 col-sm-12 desc">
                 <h6>Coursework</h6>
-                <span>Placeholder for Coursework *Note: Add Coursework field to Profile model later</span>
+                <span>{{profile.coursework}}</span>
         </div>
 
         <div class="col-lg-4 col-md-12 col-sm-12 desc">
@@ -79,7 +79,7 @@
                     <li>{{profile.major}}</li>
                     <li>{{profile.gender}}</li>
                     <li>{{profile.age}} Years Old</li>
-                    <li>Class Of '22 ADD CLASS FIELD</li>
+                    <li>Class Of {{profile.classOf}}</li>
                 </ul>
         </div>
 
