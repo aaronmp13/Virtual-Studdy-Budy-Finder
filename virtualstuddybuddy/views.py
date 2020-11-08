@@ -71,11 +71,16 @@ def get_profiles(request):
 	return render(request, 'virtualstuddybuddy/viewAllProfiles.html', context={'allProfiles': Profile.objects.all()})
 
 def manual_match(request, pk):
-	#matcher=Profile.objects.all()[0]
-	matcher = Profile.objects.all().filter(username=request.user.get_username())[0]
+	try: #must be signed in
+		matcher = Profile.objects.all().filter(username=request.user.get_username())[0]
+	except:
+		form = ProfileForm(request.POST, request.FILES)
+		return render(request, 'virtualstuddybuddy/signup.html', {'form': form})
 	matchee=get_object_or_404(Profile, pk=pk)
-	matchee.matches.append(matcher)
-	matcher_email=request.user.email
-	matchee.matches_emails.append(matcher_email)
+
+	if matcher not in matchee.matches and matcher != matchee:
+		matchee.matches.append(matcher)
+		matcher_email=request.user.email
+		matchee.matches_emails.append(matcher_email)
 
 	return render(request, 'virtualstuddybuddy/match.html', context={'matcher': matcher, 'matchee': matchee})

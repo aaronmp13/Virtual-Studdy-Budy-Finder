@@ -24,6 +24,7 @@ h1{
 .usernameTag{
     text-align: center;
     color: blueviolet;
+    margin-bottom:5%
 }
 
 body{
@@ -135,6 +136,9 @@ hr{
     background-color: blueviolet;
     border: 5px solid #555;
     text-align: center;
+    margin-top:5%;
+    margin-left:20%;
+    margin-right:20%;
 }
 
 .userDiv{
@@ -162,4 +166,18 @@ hr{
 
 label{
     color: white;
+}
+
+.footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: blueviolet;
+  color: white;
+  text-align: center;
+}
+
+.footerText{
+    margin-bottom: 1%;
+    text-align: center;
 }

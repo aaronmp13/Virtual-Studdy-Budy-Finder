@@ -22,8 +22,8 @@
 
 
     <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="">VirtualStudyBuddy</a>
+   <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -37,10 +37,10 @@
               {% endif %}
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Find Buddies</a>
+                <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">View Sessions</a>
+                <a class="nav-link" href="/virtualstudybuddy/studygroups">Study Groups</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'signup' %}">View Profile</a> <!-- this should just direct people to their profile page-->
@@ -131,6 +131,7 @@
       {% endif %}
 
 
-
+</div>
+    </section>
   </body>
 </html>

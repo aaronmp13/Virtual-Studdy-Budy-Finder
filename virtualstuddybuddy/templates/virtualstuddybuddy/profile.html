@@ -16,8 +16,8 @@
 
 <body>
     <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="">VirtualStudyBuddy</a>
+   <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -34,19 +34,20 @@
                 <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">View Sessions</a>
+                <a class="nav-link" href="/virtualstudybuddy/studygroups">Study Groups</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup'%}">View Profile</a>
+                <a class="nav-link" href="{% url 'signup' %}">View Profile</a> <!-- this should just direct people to their profile page-->
             </li>
         </ul>
      </div>
     </nav>
+
 <div class="profile_page">
     <div class="profile_username">
 	{% if profile.username %}
-
         <h1 class="centered"> Welcome to {{profile.name}}'s page! </h1>
+        <hr>
         <div class="row imgAndDesc zeroMarg">
             <div class="col-lg-2 col-md-12 col-sm-12 profPicDiv">
             {% if profile.picture %}
@@ -92,10 +93,109 @@
 
 
 	{% endif %}
+            <h3 class="centered"> Match Requests </h3>
+
       </div>
+<hr>
+{% if profile.matches %}
+      <div class="row zeroMarg">
+        <div class="col-lg-2 col-md-4 col-sm-4">
+          <h4>Avatar</h4>
+        </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-4">
+        <h4>Username</h4>
+
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-4">
+        <h4>Name</h4>
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-4">
+        <h4>Major</h4>
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-4">
+        <h4>Age</h4>
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-4">
+        <h4>Gender</h4>
+      </div>
+
+
+    </div>
+
+          <hr>
+
+
+          {% for profile in profile.matches %}
+              <div class="row zeroMarg">
+
+                <div class="col-lg-2 col-md-2 col-sm-2 ">
+                  {% if profile.picture %}
+                      <img class="all_avatars"  src="{{ profile.picture.url }}" alt="Profile Picture">
+                  {% else %}
+                      <img class="all_avatars"  src="{% static "virtualstuddybuddy/aliBitmoji.png" %}" alt="Profile Picture">
+                  {% endif %}
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                <a href="/virtualstudybuddy/profile/{{profile.pk}}/"><span class="username_link">@{{profile.username}}</span></a>
+                </div>
+
+              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                <span class="padding_top">{{profile.name}}</span>
+              </div>
+
+              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                <span>{{profile.major}}</span>
+              </div>
+
+              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                <span>{{profile.age}}</span>
+              </div>
+
+              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                <span>{{profile.gender}}</span>
+              </div>
+
+            </div>
+
+              <hr>
+
+          {% endfor %}
+
+
+
+
+      {% else %}
+          <p>Nobody has matched with you yet.</p>
+      {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#<p>{{ profile.matches }}</p>#}
+{#    <h6>Matches emails</h6>#}
 </div>
-    <h6>Matches</h6>
-<p>{{ profile.matches }}</p>
-    <h6>Matches emails</h6>
-<p>{{ profile.matches_emails }}</p>
+
+<footer class="footerText">
+      <div class="container">
+        <span class="footer">@2020 CAAMComputing</span>
+      </div>
+    </footer>
+
 </body>
