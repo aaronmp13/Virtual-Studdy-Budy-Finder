@@ -32,7 +32,8 @@ def signup(request): #How we handle signups and logins
 		#p = form.save()
 		if form.is_valid():
 			p = form.save()
-			p.username = request.user.get_username()
+			#p.username = request.user.get_username()
+			request.user.username = p.username
 			p.save()
 		else: #If the form is invalid, just make them fill it out again
 			#print(form.errors)
@@ -55,6 +56,7 @@ def editProfile(request):
 		form = ProfileForm(request.POST, request.FILES, instance = p)
 		if form.is_valid():
 			form.save()
+			request.user.username = p.username
 		else:
 			# raise DataError(
 			# 	form.errors
@@ -88,6 +90,10 @@ def my_groups(request):
 	current_users_groups= current_user.studygroup_set.all()
 	return render(request,'virtualstuddybuddy/myGroups.html', context={'currentUser': current_user, 'groups': current_users_groups})
 
+class GroupView(generic.DetailView):
+	model = StudyGroup
+	template_name = 'virtualstuddybuddy/group.html'
+
 def creategroup(request):
 	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
 	if request.method == 'POST': #If a person filled out the form
@@ -104,5 +110,30 @@ def creategroup(request):
 	else:
 		form = GroupForm()
 		return render(request, 'virtualstuddybuddy/creategroup.html', context = {"form": form})
+
+def editgroup(request, pk):
+	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
+	current_group = get_object_or_404(StudyGroup, pk=pk)
+	if request.method == 'POST': #If a person filled out the form
+		form = GroupForm(request.POST, instance = current_group)
+		g = None
+		if form.is_valid():
+			g = form.save()
+			g.profiles.add(current_user)
+			g.save()
+		else: #If the form is invalid, just make them fill it out again
+			form = GroupForm(request.POST)														
+			return render(request, 'virtualstuddybuddy/creategroup.html', {'form':form})
+		return HttpResponseRedirect('/virtualstudybuddy/group/'+str(pk))
+	else:
+		form = GroupForm()
+		return render(request, 'virtualstuddybuddy/creategroup.html', context = {"form": form})
+
+def leavegroup(request, pk):
+	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
+	current_group = get_object_or_404(StudyGroup, pk=pk)
+	current_group.profiles.remove(current_user)
+	return HttpResponseRedirect('/virtualstudybuddy/mygroups')
+
 
 	

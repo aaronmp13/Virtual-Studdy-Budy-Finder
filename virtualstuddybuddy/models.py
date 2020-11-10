@@ -5,7 +5,7 @@ from django.core.validators import *
 # Create your models here.
 
 class Profile(models.Model):
-	username = models.CharField(max_length=20, default="")
+	username = models.CharField(max_length=20, default="", unique=True, validators = [MinLengthValidator(3)])
 	name = models.CharField(max_length=50, default="", validators = [MinLengthValidator(1), MaxLengthValidator(50)])
 	gender = models.CharField(max_length=200, default="", validators = [MinLengthValidator(1), MaxLengthValidator(200)])
 	major = models.CharField(max_length=200, default="", validators = [MinLengthValidator(1), MaxLengthValidator(200)])
@@ -21,7 +21,7 @@ class Profile(models.Model):
 		return self.username + " " + self.name + " " + self.gender + " " + self.major + " " + str(self.age) + " " + self.description + " " + self.coursework + " " + str(self.classOf)
 
 class StudyGroup(models.Model):
-	group_name= models.CharField(max_length=50, default="New Group", validators = [MinLengthValidator(1), MaxLengthValidator(50)])
+	group_name= models.CharField(max_length=50, default="New Group", unique= True, validators = [MinLengthValidator(1), MaxLengthValidator(50)])
 	group_description= models.CharField(max_length=300, default="Study Group", validators = [MinLengthValidator(1), MaxLengthValidator(2000)])
 	profiles=models.ManyToManyField(Profile)
 

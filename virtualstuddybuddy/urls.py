@@ -11,11 +11,17 @@ urlpatterns = [
     path('admin/', admin.site.urls), #admin
     path('accounts/', include('allauth.urls')), #google login
     path('signup/', views.signup, name = "signup"),
+    
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'), #profile page
     path('editProfile/', views.editProfile, name = "editProfile"),
     path('viewProfiles/', views.get_profiles, name="viewProfiles"),
     path('viewProfiles/redirect/<int:pk>/', views.ProfileView.as_view(), name='profile'),  # probably don't need this anymore
+    
     path('match/<int:pk>', views.manual_match, name="manualMatch"),
+    
     path('mygroups/', views.my_groups, name="mygroups"),
-    path('creategroup/', views.creategroup, name = "creategroup")
+    path('group/<int:pk>/', views.GroupView.as_view(), name='group'), #profile page
+    path('creategroup/', views.creategroup, name = "creategroup"),
+    path('editgroup/<int:pk>/', views.editgroup, name="editgroup"),
+    path('leavegroup/<int:pk>/', views.leavegroup, name="leavegroup")
 ] 

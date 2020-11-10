@@ -83,8 +83,8 @@ class SignUpTests(TestCase):
 		user.save()
 		self.client.login(username="test", password="test")
 
-		self.response1 = self.client.post(reverse('signup'), {'name': 'test', 'gender': 'male', 'age': 21, 'major':'cs', 'description':'test descr', 'coursework': "test cw", 'classOf': 2023})
-		self.response2 = self.client.post(reverse('signup'), {'name': 'empty', 'gender': '', 'age': 21, 'major':'cs', 'description':'test descr',  'coursework': "test cw", 'classOf': 2023})
+		self.response1 = self.client.post(reverse('signup'), {'username':'test','name': 'test', 'gender': 'male', 'age': 21, 'major':'cs', 'description':'test descr', 'coursework': "test cw", 'classOf': 2023})
+		self.response2 = self.client.post(reverse('signup'), {'username':'test','name': 'empty', 'gender': '', 'age': 21, 'major':'cs', 'description':'test descr',  'coursework': "test cw", 'classOf': 2023})
 		self.response3 = self.client.get(reverse('signup'))		
 
 		#print(self.response2.context['form'].errors.as_data())
@@ -112,10 +112,9 @@ class EditProfileTests(TestCase):
 		user.is_active = True
 		user.save()
 		self.client.login(username="test", password="test")
-		self.client.post(reverse('signup'),  {'name': 'test', 'gender': 'male', 'age': 21, 'major':'cs', 'description':'test descr', 'coursework': "test cw", 'classOf': 2023})
-		
-		self.response1 = self.client.post(reverse('editProfile'), {'name': 'test', 'gender': 'male', 'age': 21, 'major':'cs', 'description':'editted descr', 'coursework': "test cw", 'classOf': 2023})
-		self.response2 = self.client.post(reverse('editProfile'), {'name': 'empty', 'gender': '', 'age': 21, 'major':'cs', 'description':'test descr',  'coursework': "test cw", 'classOf': 2023})
+		self.client.post(reverse('signup'),  {'username':'test', 'name': 'test', 'gender': 'male', 'age': 21, 'major':'cs', 'description':'test descr', 'coursework': "test cw", 'classOf': 2023})
+		self.response1 = self.client.post(reverse('editProfile'), {'username':'test','name': 'test', 'gender': 'male', 'age': 21, 'major':'cs', 'description':'editted descr', 'coursework': "test cw", 'classOf': 2023})
+		self.response2 = self.client.post(reverse('editProfile'), {'username':'test','name': 'empty', 'gender': '', 'age': 21, 'major':'cs', 'description':'test descr',  'coursework': "test cw", 'classOf': 2023})
 		self.response3 = self.client.get(reverse('editProfile'))	
 	
 	def test_good_edit(self):
