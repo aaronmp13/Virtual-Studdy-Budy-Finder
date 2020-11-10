@@ -14,14 +14,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'virtualstuddybuddy/styles.css' %}">
   </head>
 
-  <body>
-    <section id="title">
+<body>
 
-    <div class="container-fluid">
-
-
-
-    <!-- Nav Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,89 +43,55 @@
      </div>
     </nav>
 
+    <div class="profile_page">
+    <h1 class="centered"> My Groups! </h1>
 
-        <h3 class="find_friends" style="text-align:center">Find friends to study with!</h3>
-        <hr>
-      {% if allProfiles %}
-      <div class="row">
-        <div class="col-lg-2 col-md-4 col-sm-4">
-          <h4>Avatar</h4>
-        </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-4">
-        <h4>Username</h4>
-
-      </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-4">
-        <h4>Name</h4>
-      </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-4">
-        <h4>Major</h4>
-      </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-4">
-        <h4>Age</h4>
-      </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-4">
-        <h4>Gender</h4>
-      </div>
+    {% if groups %}
+   {% for group in groups %}
 
 
-    </div>
-
-          <hr>
-
-
-          {% for profile in allProfiles %}
-              <div class="row">
-
-                <div class="col-lg-2 col-md-2 col-sm-2 ">
-                  {% if profile.picture %}
-                      <img class="all_avatars"  src="{{ profile.picture.url }}" alt="Profile Picture">
-                  {% else %}
-                      <img class="all_avatars"  src="{% static "virtualstuddybuddy/aliBitmoji.png" %}" alt="Profile Picture">
-                  {% endif %}
-                </div>
-
-                <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
-                <a href="/virtualstudybuddy/profile/{{profile.pk}}/"><span class="username_link">@{{profile.username}}</span></a>
-{#                <a type="button" class="btn btn-dark btn-sm" href="/virtualstudybuddy/match/{{ profile.pk }}">Match</a>#}
-                </div>
-
-              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
-                <span class="padding_top">{{profile.name}}</span>
-              </div>
-
-              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
-                <span>{{profile.major}}</span>
-              </div>
-
-              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
-                <span>{{profile.age}}</span>
-              </div>
-
-              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
-                <span>{{profile.gender}}</span>
-              </div>
-
+       <div class="row imgAndDesc zeroMarg find_friends">
+       <hr>
+            <div class="col-lg-2 col-md-4 col-sm-4 desc">
+                <h5>Group Name</h5>
+                <span><a class="username_link" href="/virtualstudybuddy/group/{{ group.pk }}">{{ group }}</a></span>
+                <a href="/virtualstudybuddy/meetgroup/{{ group.pk }}"><button type="button" class="btn btn-outline-light btn-lg download">Meet With This Group</button></a>
+                <a href="/virtualstudybuddy/leavegroup/{{ group.pk }}"><button type="button" class="btn btn-dark btn-lg download">Leave This Group</button></a>
             </div>
 
-              <hr>
+            <div class="col-lg-4 col-md-8 col-sm-8 desc">
+                <h5>Group Description</h5>
+                <span>{{group.group_description}}</span>
+            </div>
 
-          {% endfor %}
+            <div class="col-lg-3 col-md-8 col-sm-8 desc">
+                <h5>Group Roster</h5>
+                <ul>
+                {% for person in group.profiles.all %}
+                    <li><a class="username_link" href="/virtualstudybuddy/profile/{{person.pk}}/">@{{ person.username }}</a>, {{ person.name }}</li>
+                {% endfor %}
+                </ul>
 
+            </div>
+        <hr>
+        </div>
 
+   {% endfor %}
 
+    {% else %}
+    <h1> Looks like you aren't in any groups!</h1>
+    {% endif %}
 
-      {% else %}
-          <p>Nobody is looking for study buddies right now, please check back later.</p>
-      {% endif %}
+        <a href="/virtualstudybuddy/creategroup/"><button type="button" class="btn btn-dark btn-lg download">Create Group</button></a>
+
+    <div class="lastEle"></div>
+
 
 
 </div>
-    </section>
-  </body>
+
+<div class="lastEle"></div>
+
+
+</body>
 </html>
