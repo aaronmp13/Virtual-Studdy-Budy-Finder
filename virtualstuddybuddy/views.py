@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from django.http import HttpRequest
 from django.db import DataError
 from .forms import *
+from .googleMeet import createMeeting
 
 # Create your views here.
 
@@ -87,7 +88,7 @@ def my_groups(request):
 		return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
 
 	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
-	current_users_groups= current_user.studygroup_set.all()
+	current_users_groups = current_user.studygroup_set.all()
 	return render(request,'virtualstuddybuddy/myGroups.html', context={'currentUser': current_user, 'groups': current_users_groups})
 
 class GroupView(generic.DetailView):
@@ -133,7 +134,29 @@ def leavegroup(request, pk):
 	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
 	current_group = get_object_or_404(StudyGroup, pk=pk)
 	current_group.profiles.remove(current_user)
+	current_group.save()
 	return HttpResponseRedirect('/virtualstudybuddy/mygroups')
 
+def meetgroup(request, pk):
+	current_group = get_object_or_404(StudyGroup, pk=pk)
+	if request.method == 'POST': #If a person filled out the form
+		form = MeetForm(request.POST)
+		if form.is_valid():
+			date = form.cleaned_data['date']
+			startTime = form.cleaned_data['startTime']
+			endTime = form.cleaned_data['endTime']
+			emails = []
+			for p in current_group.profiles.all():
+				username = p.username
+				email = User.objects.all().filter(username = username)[0].email
+				emails.append(email)
+			print(date, startTime, endTime, emails)
+			#createMeeting(current_group.group_name,emails, date, startTime, endTime) #uncomment this to enable google meet
 
-	
+		else: #If the form is invalid, just make them fill it out again
+			form = MeetForm(request.POST)														
+			return render(request, 'virtualstuddybuddy/meetgroup.html', {'form':form})
+		return HttpResponseRedirect('/virtualstudybuddy/group/'+str(pk))
+	else:
+		form = MeetForm()
+		return render(request, 'virtualstuddybuddy/meetgroup.html', context = {"form": form})

@@ -20,3 +20,8 @@ class GroupForm(ModelForm):
     class Meta:
         model = StudyGroup
         exclude = ['profiles']
+
+class MeetForm(Form):
+    date = DateField(label = "Meeting Date (yyyy-mm-dd)")
+    startTime = TimeField(label = "Start Time (hh:mm)")
+    endTime = TimeField(label = "End Time (hh:mm)")
