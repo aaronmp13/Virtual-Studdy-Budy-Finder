@@ -21,8 +21,8 @@ class Profile(models.Model):
 		return self.username + " " + self.name + " " + self.gender + " " + self.major + " " + str(self.age) + " " + self.description + " " + self.coursework + " " + str(self.classOf)
 
 class StudyGroup(models.Model):
-	group_name= models.CharField(max_length=50, default="New Group")
-	group_description= models.CharField(max_length=300, default="Study Group")
+	group_name= models.CharField(max_length=50, default="New Group", validators = [MinLengthValidator(1), MaxLengthValidator(50)])
+	group_description= models.CharField(max_length=300, default="Study Group", validators = [MinLengthValidator(1), MaxLengthValidator(2000)])
 	profiles=models.ManyToManyField(Profile)
 
 	def __str__(self):

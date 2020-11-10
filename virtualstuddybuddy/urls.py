@@ -16,5 +16,6 @@ urlpatterns = [
     path('viewProfiles/', views.get_profiles, name="viewProfiles"),
     path('viewProfiles/redirect/<int:pk>/', views.ProfileView.as_view(), name='profile'),  # probably don't need this anymore
     path('match/<int:pk>', views.manual_match, name="manualMatch"),
-    path('mygroups/', views.my_groups, name="mygroups")
+    path('mygroups/', views.my_groups, name="mygroups"),
+    path('creategroup/', views.creategroup, name = "creategroup")
 ] 

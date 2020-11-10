@@ -97,7 +97,7 @@ class SignUpTests(TestCase):
 		self.assertEqual(p.major, 'cs')
 		self.assertEqual(p.description, 'test descr')
 		self.assertEqual(p.coursework, "test cw")
-		self.assertEqual(p.classOf, '2023')
+		self.assertEqual(p.classOf, 2023)
 
 	def test_bad_signup(self):
 		self.assertEqual(str(self.response2.context['form'].errors.as_data()['gender']), "[ValidationError(['This field is required.'])]")
@@ -126,7 +126,7 @@ class EditProfileTests(TestCase):
 		self.assertEqual(p.major, 'cs')
 		self.assertEqual(p.description, 'editted descr')
 		self.assertEqual(p.coursework, "test cw")
-		self.assertEquals(p.classOf, '2023')
+		self.assertEquals(p.classOf, 2023)
 	
 	def test_bad_signup(self):
 		self.assertEqual(str(self.response2.context['form'].errors.as_data()['gender']), "[ValidationError(['This field is required.'])]")

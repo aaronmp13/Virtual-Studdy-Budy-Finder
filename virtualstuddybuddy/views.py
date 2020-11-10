@@ -63,7 +63,7 @@ def editProfile(request):
 			return render(request, 'virtualstuddybuddy/signup.html', {'form':form})
 		return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
 	else:
-		initialDict = {f.name:getattr(p, f.name) for f in Profile._meta.get_fields()}
+		initialDict = {f.name:getattr(p, f.name) for f in Profile._meta.get_fields() if f.name!="studygroup"}
 		form = ProfileForm(initial=initialDict)
 		return render(request, 'virtualstuddybuddy/editProfile.html', context = {"form": form})
 
@@ -81,6 +81,28 @@ def manual_match(request, pk): #FIX THIS
 	return render(request, 'virtualstuddybuddy/match.html', context={'matcher': matcher, 'matchee': matchee})
 
 def my_groups(request):
+	if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+		return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
+
 	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
 	current_users_groups= current_user.studygroup_set.all()
 	return render(request,'virtualstuddybuddy/myGroups.html', context={'currentUser': current_user, 'groups': current_users_groups})
+
+def creategroup(request):
+	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
+	if request.method == 'POST': #If a person filled out the form
+		form = GroupForm(request.POST)
+		g = None
+		if form.is_valid():
+			g = form.save()
+			g.profiles.add(current_user)
+			g.save()
+		else: #If the form is invalid, just make them fill it out again
+			form = GroupForm(request.POST)														
+			return render(request, 'virtualstuddybuddy/creategroup.html', {'form':form})
+		return HttpResponseRedirect('/virtualstudybuddy/mygroups')
+	else:
+		form = GroupForm()
+		return render(request, 'virtualstuddybuddy/creategroup.html', context = {"form": form})
+
+	
