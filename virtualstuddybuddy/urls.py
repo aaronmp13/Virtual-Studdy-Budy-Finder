@@ -21,7 +21,7 @@ urlpatterns = [
     
     path('mygroups/', views.my_groups, name="mygroups"),
     path('allgroups/', views.all_groups, name="allgroups"),
-    path('group/<int:pk>/', views.GroupView.as_view(), name='group'), #profile page
+    path('group/<int:pk>/', views.group_page, name='group'), #profile page
     path('creategroup/', views.creategroup, name = "creategroup"),
     path('editgroup/<int:pk>/', views.editgroup, name="editgroup"),
     path('leavegroup/<int:pk>/', views.leavegroup, name="leavegroup"),

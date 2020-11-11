@@ -2,36 +2,43 @@
 {% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>VSB Homepage</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Ubuntu&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e920b29c8f.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'virtualstuddybuddy/styles.css' %}">
-  </head>
-
-
+</head>
 
 
 <body>
-    <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<!-- Nav Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a> <!--google login-->
-              {% else %}
-                <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
-              {% endif %}
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a>
+                    <!--google login-->
+                {% else %}
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
+                {% endif %}
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
@@ -45,15 +52,17 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup' %}">View Profile</a> <!-- this should just direct people to their profile page-->
+                <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
+                <!-- this should just direct people to their profile page-->
             </li>
 
         </ul>
-     </div>
-    </nav>
+    </div>
+</nav>
 
-    <h1>Welcome to the match page @{{ matcher.username }}!</h1>
-    <h2>You have been added to @{{ matchee.username }} potential matches. They will contact you via email if they wish to study with you!</h2>
+<h1>Welcome to the match page @{{ matcher.username }}!</h1>
+<h2>You have been added to @{{ matchee.username }} potential matches. They will contact you via email if they wish to
+    study with you!</h2>
 
 
 </body>

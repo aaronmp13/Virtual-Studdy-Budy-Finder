@@ -2,33 +2,42 @@
 {% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>VSB Homepage</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Ubuntu&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e920b29c8f.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'virtualstuddybuddy/styles.css' %}">
-  </head>
+</head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a> <!--google login-->
-              {% else %}
-                <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
-              {% endif %}
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a>
+                    <!--google login-->
+                {% else %}
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
+                {% endif %}
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
@@ -42,28 +51,70 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup' %}">View Profile</a> <!-- this should just direct people to their profile page-->
+                <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
+                <!-- this should just direct people to their profile page-->
             </li>
 
         </ul>
-     </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class = "profile_page">
-        <h1 class="centered">Group {{studygroup.group_name}}</h1>
-        <a href="/virtualstudybuddy/editgroup/{{studygroup.pk}}"><button type="button" class="btn btn-dark btn-lg download">Edit Group</button></a>
-        <div class="col-lg-8 col-md-12 col-sm-12 desc">
-            <h6>Description</h6>
-            <span>{{studygroup.group_description}}</span>
-        </div>
+<div class="profile_page">
+    <h1 class="centered">{{ studygroup.group_name }} Group Page </h1>
 
-        <h3 class="centered">Chat</h1>
-        <div class="col-lg-8 col-md-12 col-sm-12 desc">
-            <h6>This is where the chat will go </h6>
-        </div>
+    <div class="centerElementsOnly">
+        {% if inGroup %}
+            <a href="/virtualstudybuddy/editgroup/{{ studygroup.pk }}">
+                <button type="button" class="btn btn-success btn-lg download">Meet Group</button>
+            </a>
+            <a href="/virtualstudybuddy/editgroup/{{ studygroup.pk }}">
+                <button type="button" class="btn btn-outline-dark btn-lg download">Edit Group</button>
+            </a>
+        {% else %}
+            <a href="/virtualstudybuddy/joingroup/{{ studygroup.pk }}">
+                <button type="button" class="btn btn-success btn-lg download">Join Group</button>
+            </a>
+        {% endif %}
     </div>
 
-    
+    <div class="row zeroMarg">
+        <hr>
+        <div class="col-lg-5 col-md-5 col-sm-5 desc">
+            <h6>Description</h6>
+            <hr>
+            <span>{{ studygroup.group_description }}</span>
+        </div>
+
+        <div class="col-lg-5 col-md-5 col-sm-5 desc">
+            <h6>Roster</h6>
+            <hr>
+
+            {% for person in studygroup.profiles.all %}
+                <li><a class="username_link"
+                       href="/virtualstudybuddy/profile/{{ person.pk }}/">@{{ person.username }}</a>, {{ person.name }}
+                </li>
+            {% endfor %}
+        </div>
+        <hr>
+    </div>
+    <hr>
+
+    {% if inGroup %}
+        <h3 class="centered">Chat</h3>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 groupchat centerElementsOnly zeroMarg">
+            <h3 class="chatText">This is where the chat will go </h3>
+        </div>
+    {% endif %}
+    {% if inGroup %}
+        <div class="centerElementsOnly">
+            <a href="/virtualstudybuddy/leavegroup/{{ studygroup.pk }}">
+                <button type="button" class="btn btn-danger btn-lg download">Leave Group</button>
+            </a>
+        </div>
+    {% endif %}
+
+</div>
 
 
 </body>

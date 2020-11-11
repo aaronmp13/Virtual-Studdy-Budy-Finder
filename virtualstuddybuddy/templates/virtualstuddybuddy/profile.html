@@ -2,33 +2,42 @@
 {% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>VSB Homepage</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Ubuntu&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e920b29c8f.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'virtualstuddybuddy/styles.css' %}">
-  </head>
+</head>
 
 <body>
-    <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<!-- Nav Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a> <!--google login-->
-              {% else %}
-                <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
-              {% endif %}
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a>
+                    <!--google login-->
+                {% else %}
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
+                {% endif %}
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
@@ -42,169 +51,174 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup' %}">View Profile</a> <!-- this should just direct people to their profile page-->
+                <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
+                <!-- this should just direct people to their profile page-->
             </li>
 
         </ul>
-     </div>
-    </nav>
+    </div>
+</nav>
 
 <div class="profile_page">
     <div class="profile_username">
-	{% if profile.username %}
-        <h1 class="centered"> Welcome to {{profile.name}}'s page! </h1>
-        <hr>
-        <div class="row imgAndDesc zeroMarg">
-            <div class="col-lg-2 col-md-12 col-sm-12 profPicDiv">
-            {% if profile.picture %}
-                <img class="profile_pic" src="{{ profile.picture.url }}" alt="Profile Picture">
-            {% else %}
-                <img class="profile_pic" src="{% static "virtualstuddybuddy/aliBitmoji.png" %}" alt="Profile Picture">
-            {% endif %}
+        {% if profile.username %}
+            <h1 class="centered"> Welcome to {{ profile.name }}'s page! </h1>
+            <hr>
+            <div class="row imgAndDesc zeroMarg">
+                <div class="col-lg-2 col-md-12 col-sm-12 profPicDiv">
+                    {% if profile.picture %}
+                        <img class="profile_pic" src="{{ profile.picture.url }}" alt="Profile Picture">
+                    {% else %}
+                        <img class="profile_pic" src="{% static "virtualstuddybuddy/aliBitmoji.png" %}"
+                             alt="Profile Picture">
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-8 col-md-12 col-sm-12 desc">
+                    <h6>Bio</h6>
+                    <span>{{ profile.description }}</span>
+                </div>
+
+            </div>
+            <div class="row zeroMarg">
+                <div class="col-lg-2 col-md-12 cold-sm-12 userDiv">
+                    <h6 class="usernameTag">Username</h6>
+                    <span class="username">@{{ profile.username }}</span>
+                    {% if user.username == profile.username %}
+                        <a type="button" class="btn btn-dark btn-lg editBtn" href="{% url 'editProfile' %}">Edit
+                            Profile</a>
+                    {% endif %}
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12 desc">
+                    <h6>Coursework</h6>
+                    <span>{{ profile.coursework }}</span>
+                </div>
+
+                <div class="col-lg-4 col-md-12 col-sm-12 desc">
+                    <h6>Attributes</h6>
+                    <ul>
+                        <li>{{ profile.major }}</li>
+                        <li>{{ profile.gender }}</li>
+                        <li>{{ profile.age }} Years Old</li>
+                        <li>Class Of {{ profile.classOf }}</li>
+                    </ul>
+                </div>
+
             </div>
 
-            <div class="col-lg-8 col-md-12 col-sm-12 desc">
-                <h6>Bio</h6>
-                <span>{{profile.description}}</span>
+
+            <div class="row zeroMarg lastEle">
+
             </div>
 
-        </div>
-        <div class="row zeroMarg">
-            <div class="col-lg-2 col-md-12 cold-sm-12 userDiv">
-                <h6 class="usernameTag">Username</h6>
-            <span class="username">@{{profile.username}}</span>
-                {% if user.username == profile.username %}
-                <a type="button" class="btn btn-dark btn-lg editBtn" href="{% url 'editProfile'%}">Edit Profile</a>
-                {% endif %}
-            </div>
-        <div class="col-lg-4 col-md-12 col-sm-12 desc">
-                <h6>Coursework</h6>
-                <span>{{profile.coursework}}</span>
-        </div>
 
-        <div class="col-lg-4 col-md-12 col-sm-12 desc">
-                <h6>Attributes</h6>
-                <ul>
-                    <li>{{profile.major}}</li>
-                    <li>{{profile.gender}}</li>
-                    <li>{{profile.age}} Years Old</li>
-                    <li>Class Of {{profile.classOf}}</li>
-                </ul>
-        </div>
-
-        </div>
-
-
-        <div class="row zeroMarg lastEle">
-
-        </div>
-
-
-	{% endif %}
-
-
-      </div>
-
-
-{% if profile.matches %}
-    <h3 class="centered"> Match Requests </h3>
-      <div class="row zeroMarg">
-        <div class="col-lg-2 col-md-4 col-sm-4">
-          <h4>Avatar</h4>
-        </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-4">
-        <h4>Username</h4>
-
-      </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-4">
-        <h4>Name</h4>
-      </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-4">
-        <h4>Major</h4>
-      </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-4">
-        <h4>Age</h4>
-      </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-4">
-        <h4>Gender</h4>
-      </div>
+        {% endif %}
 
 
     </div>
 
-          <hr>
 
+    {% if profile.matches %}
+        <h3 class="centered"> Match Requests </h3>
+        <div class="row zeroMarg">
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <h4>Avatar</h4>
+            </div>
 
-          {% for match in profile.matches %}
-              <div class="row zeroMarg">
-
-                <div class="col-lg-2 col-md-2 col-sm-2 ">
-                  {% if match.picture %}
-                      <img class="all_avatars"  src="{{ match.picture.url }}" alt="Profile Picture">
-                  {% else %}
-                      <img class="all_avatars"  src="{% static "virtualstuddybuddy/aliBitmoji.png" %}" alt="Profile Picture">
-                  {% endif %}
-                </div>
-
-                <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
-                <a href="/virtualstudybuddy/profile/{{match.pk}}/"><span class="username_link">@{{match.username}}</span></a>
-                </div>
-
-              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
-                <span class="padding_top">{{match.name}}</span>
-              </div>
-
-              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
-                <span>{{match.major}}</span>
-              </div>
-
-              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
-                <span>{{match.age}}</span>
-              </div>
-
-              <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
-                <span>{{match.gender}}</span>
-              </div>
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <h4>Username</h4>
 
             </div>
 
-              <hr>
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <h4>Name</h4>
+            </div>
 
-          {% endfor %}
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <h4>Major</h4>
+            </div>
 
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <h4>Age</h4>
+            </div>
 
-
-
-      {% else %}
-      {% endif %}
-
-
-
-
-
-
-
-
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <h4>Gender</h4>
+            </div>
 
 
+        </div>
+
+        <hr>
+
+
+        {% for match in profile.matches %}
+            <div class="row zeroMarg">
+
+                <div class="col-lg-2 col-md-2 col-sm-2 ">
+                    {% if match.picture %}
+                        <img class="all_avatars" src="{{ match.picture.url }}" alt="Profile Picture">
+                    {% else %}
+                        <img class="all_avatars" src="{% static "virtualstuddybuddy/aliBitmoji.png" %}"
+                             alt="Profile Picture">
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                    <a href="/virtualstudybuddy/profile/{{ match.pk }}/"><span
+                            class="username_link">@{{ match.username }}</span></a>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                    <span class="padding_top">{{ match.name }}</span>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                    <span>{{ match.major }}</span>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                    <span>{{ match.age }}</span>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
+                    <span>{{ match.gender }}</span>
+                </div>
+
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+
+
+
+    {% else %}
+    {% endif %}
 
 
 
 
 
-{#<p>{{ profile.matches }}</p>#}
-{#    <h6>Matches emails</h6>#}
+
+
+
+
+
+
+
+
+
+
+    {#<p>{{ profile.matches }}</p>#}
+    {#    <h6>Matches emails</h6>#}
 </div>
 
 <footer class="footerText">
-      <div class="container">
+    <div class="container">
         <span class="footer">@2020 CAAMComputing</span>
-      </div>
-    </footer>
+    </div>
+</footer>
 
 </body>

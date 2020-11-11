@@ -107,9 +107,17 @@ def join_group(request, pk):
 	group_to_join.profiles.add(current_user)
 	return HttpResponseRedirect('/virtualstudybuddy/mygroups')
 
-class GroupView(generic.DetailView):
-	model = StudyGroup
-	template_name = 'virtualstuddybuddy/group.html'
+# class GroupView(generic.DetailView):
+# 	model = StudyGroup
+# 	template_name = 'virtualstuddybuddy/group.html'
+
+def group_page(request, pk):
+	current_group=get_object_or_404(StudyGroup, pk=pk)
+	current_user=Profile.objects.all().filter(username=request.user.get_username())[0]
+	in_group=False
+	if current_user in current_group.profiles.all():
+		in_group=True
+	return render(request, 'virtualstuddybuddy/group.html', context={'studygroup': current_group, 'inGroup': in_group})
 
 def creategroup(request):
 	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
