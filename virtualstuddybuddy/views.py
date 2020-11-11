@@ -177,7 +177,11 @@ def meetgroup(request, pk):
 				email = User.objects.all().filter(username = username)[0].email
 				emails.append(email)
 			print(date, startTime, endTime, emails)
-			#createMeeting(current_group.group_name,emails, date, startTime, endTime) #uncomment this to enable google meet
+			try:
+				createMeeting(current_group.group_name,emails, date, startTime, endTime) #uncomment this to enable google meet
+			except:
+				form.add_error(None, "Not a valid meeting")											
+				return render(request, 'virtualstuddybuddy/meetgroup.html', {'form':form})
 
 		else: #If the form is invalid, just make them fill it out again
 			form = MeetForm(request.POST)														

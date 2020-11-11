@@ -3,3 +3,4 @@ gunicorn
 django-allauth
 Pillow
 django-heroku
+googleapiclient

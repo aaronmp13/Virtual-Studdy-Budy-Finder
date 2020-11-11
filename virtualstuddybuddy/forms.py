@@ -23,5 +23,5 @@ class GroupForm(ModelForm):
 
 class MeetForm(Form):
     date = DateField(label = "Meeting Date (yyyy-mm-dd)")
-    startTime = TimeField(label = "Start Time (hh:mm)")
-    endTime = TimeField(label = "End Time (hh:mm)")
+    startTime = TimeField(label = "Start Time (hh:mm, military time)")
+    endTime = TimeField(label = "End Time (hh:mm, military time)")
