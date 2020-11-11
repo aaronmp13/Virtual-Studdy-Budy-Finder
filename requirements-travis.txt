@@ -3,4 +3,6 @@ gunicorn
 django-allauth
 Pillow
 django-heroku
-googleapiclient
+googleapiclient.discovery
+google_auth_oauthlib.flow
+google.auth.transport.requests
