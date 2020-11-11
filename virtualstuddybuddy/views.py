@@ -91,6 +91,22 @@ def my_groups(request):
 	current_users_groups = current_user.studygroup_set.all()
 	return render(request,'virtualstuddybuddy/myGroups.html', context={'currentUser': current_user, 'groups': current_users_groups})
 
+def all_groups(request): #Shows all the groups that the current user is NOT in
+	all_groups=StudyGroup.objects.all()
+	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
+	groups_not_in=[]
+	for i in range(0, len(all_groups)):
+		if all_groups[i] not in current_user.studygroup_set.all():
+			groups_not_in.append(all_groups[i])
+
+	return render(request,'virtualstuddybuddy/allGroups.html', context={'currentUser': current_user, 'groups': groups_not_in})
+
+def join_group(request, pk):
+	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
+	group_to_join= get_object_or_404(StudyGroup, pk=pk)
+	group_to_join.profiles.add(current_user)
+	return HttpResponseRedirect('/virtualstudybuddy/mygroups')
+
 class GroupView(generic.DetailView):
 	model = StudyGroup
 	template_name = 'virtualstuddybuddy/group.html'

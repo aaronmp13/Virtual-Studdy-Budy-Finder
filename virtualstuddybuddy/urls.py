@@ -20,9 +20,11 @@ urlpatterns = [
     path('match/<int:pk>', views.manual_match, name="manualMatch"),
     
     path('mygroups/', views.my_groups, name="mygroups"),
+    path('allgroups/', views.all_groups, name="allgroups"),
     path('group/<int:pk>/', views.GroupView.as_view(), name='group'), #profile page
     path('creategroup/', views.creategroup, name = "creategroup"),
     path('editgroup/<int:pk>/', views.editgroup, name="editgroup"),
     path('leavegroup/<int:pk>/', views.leavegroup, name="leavegroup"),
     path('meetgroup/<int:pk>/', views.meetgroup, name="meetgroup"),
+    path('joingroup/<int:pk>', views.join_group, name="joingroup")
 ] 

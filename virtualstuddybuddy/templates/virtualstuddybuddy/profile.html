@@ -36,9 +36,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'signup' %}">View Profile</a> <!-- this should just direct people to their profile page-->
             </li>
+
         </ul>
      </div>
     </nav>
@@ -67,7 +73,9 @@
             <div class="col-lg-2 col-md-12 cold-sm-12 userDiv">
                 <h6 class="usernameTag">Username</h6>
             <span class="username">@{{profile.username}}</span>
+                {% if user.username == profile.username %}
                 <a type="button" class="btn btn-dark btn-lg editBtn" href="{% url 'editProfile'%}">Edit Profile</a>
+                {% endif %}
             </div>
         <div class="col-lg-4 col-md-12 col-sm-12 desc">
                 <h6>Coursework</h6>
