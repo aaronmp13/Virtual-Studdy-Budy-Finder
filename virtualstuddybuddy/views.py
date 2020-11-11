@@ -36,6 +36,7 @@ def signup(request): #How we handle signups and logins
 			#p.username = request.user.get_username()
 			request.user.username = p.username
 			p.save()
+			request.user.save()
 		else: #If the form is invalid, just make them fill it out again
 			#print(form.errors)
 			form = ProfileForm(request.POST, request.FILES)														
@@ -58,6 +59,7 @@ def editProfile(request):
 		if form.is_valid():
 			form.save()
 			request.user.username = p.username
+			request.user.save()
 		else:
 			# raise DataError(
 			# 	form.errors
