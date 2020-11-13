@@ -64,15 +64,15 @@
 
     <div class="centerElementsOnly">
         {% if inGroup %}
-            <a href="/virtualstudybuddy/meetgroup/{{ studygroup.pk }}">
-                <button type="button" class="btn btn-success btn-lg download">Meet Group</button>
+            <a class="btn btn-success btn-lg download" href="/virtualstudybuddy/meetgroup/{{ studygroup.pk }}">
+                Meet Group
             </a>
-            <a href="/virtualstudybuddy/editgroup/{{ studygroup.pk }}">
-                <button type="button" class="btn btn-outline-dark btn-lg download">Edit Group</button>
+            <a class="btn btn-outline-dark btn-lg download" href="/virtualstudybuddy/editgroup/{{ studygroup.pk }}">
+                Edit Group
             </a>
         {% else %}
-            <a href="/virtualstudybuddy/joingroup/{{ studygroup.pk }}">
-                <button type="button" class="btn btn-success btn-lg download">Join Group</button>
+            <a class="btn btn-success btn-lg download" href="/virtualstudybuddy/joingroup/{{ studygroup.pk }}">
+                Join Group
             </a>
         {% endif %}
     </div>
@@ -108,8 +108,8 @@
     {% endif %}
     {% if inGroup %}
         <div class="centerElementsOnly">
-            <a href="/virtualstudybuddy/leavegroup/{{ studygroup.pk }}">
-                <button type="button" class="btn btn-danger btn-lg download">Leave Group</button>
+            <a class="btn btn-danger btn-lg download" href="/virtualstudybuddy/leavegroup/{{ studygroup.pk }}">
+                Leave Group
             </a>
         </div>
     {% endif %}

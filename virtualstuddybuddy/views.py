@@ -96,7 +96,7 @@ def my_groups(request):
 def all_groups(request): #Shows all the groups that the current user is NOT in
 	if not request.user.is_authenticated: #redirects to login if they haven't done that yet
 		return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
-	
+
 	all_groups=StudyGroup.objects.all()
 	current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
 	groups_not_in=[]
