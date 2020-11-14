@@ -185,7 +185,8 @@ hr{
 }
 
 label{
-    color: white;
+    color: blueviolet;
+    font-weight: bold;
 }
 
 .footer {
@@ -204,6 +205,10 @@ label{
 
 .mygroups {
     background-color: white;
+}
+
+.signupForms{
+    margin-bottom: 2.5%;
 }
 
 #page-container {
