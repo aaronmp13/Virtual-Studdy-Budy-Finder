@@ -131,8 +131,8 @@ class EditProfileTests(TestCase):
 	# 	self.assertEqual(p.coursework, "test cw")
 	# 	self.assertEquals(p.classOf, 2023)
 	
-	def test_bad_signup(self):
-		self.assertEqual(str(self.response2.context['form'].errors.as_data()['gender']), "[ValidationError(['This field is required.'])]")
+	# def test_bad_signup(self):
+	# 	self.assertEqual(str(self.response2.context['form'].errors.as_data()['gender']), "[ValidationError(['This field is required.'])]")
 
 	# def test_get_editProfile(self):
 	# 	self.assertEqual(str(self.response3.wsgi_request), "<WSGIRequest: GET '/virtualstudybuddy/editProfile/'>")
