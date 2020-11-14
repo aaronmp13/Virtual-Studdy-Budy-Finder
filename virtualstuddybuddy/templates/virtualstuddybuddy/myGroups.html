@@ -70,27 +70,35 @@
                 <hr>
                 <div class="col-lg-2 col-md-4 col-sm-4 desc">
                     <h5>Group Name</h5>
+                    <hr>
+                    <div class="centerElementsOnly">
                     <span><a class="username_link" href="/virtualstudybuddy/group/{{ group.pk }}">{{ group }}</a></span>
+                        </div>
+                    <div class="centerElementsOnly">
                     <a href="/virtualstudybuddy/meetgroup/{{ group.pk }}">
-                        <button type="button" class="btn btn-outline-light btn-lg download">Meet With This Group
+                        <hr>
+                        <button type="button" class="btn btn-outline-light btn-lg download">Meet Group
                         </button>
                     </a>
                     <a href="/virtualstudybuddy/leavegroup/{{ group.pk }}">
-                        <button type="button" class="btn btn-dark btn-lg download">Leave This Group</button>
+                        <button type="button" class="btn btn-danger btn-lg download">Leave Group</button>
                     </a>
+                        </div>
                 </div>
 
                 <div class="col-lg-4 col-md-8 col-sm-8 desc">
                     <h5>Group Description</h5>
+                    <hr>
                     <span>{{ group.group_description }}</span>
                 </div>
 
                 <div class="col-lg-3 col-md-8 col-sm-8 desc">
                     <h5>Group Roster</h5>
+                    <hr>
                     <ul>
                         {% for person in group.profiles.all %}
                             <li><a class="username_link"
-                                   href="/virtualstudybuddy/profile/{{ person.pk }}/">@{{ person.username }}</a>, {{ person.name }}
+                                   href="/virtualstudybuddy/profile/{{ person.pk }}/">@{{ person.username }}</a>
                             </li>
                         {% endfor %}
                     </ul>

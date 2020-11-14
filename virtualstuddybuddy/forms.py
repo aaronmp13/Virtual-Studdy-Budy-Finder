@@ -28,7 +28,23 @@ class GroupForm(ModelForm):
         model = StudyGroup
         exclude = ['profiles']
 
+        labels = {
+            'group_name': "Group Name",
+            'group_description': "Group Description",
+        }
+
+        widgets = {
+            'group_name': TextInput(attrs={'placeholder': 'Awesome CS Group!'}),
+            'group_description': TextInput(attrs={'placeholder': 'What is the focus of this study group?'}),
+
+        }
+
 class MeetForm(Form):
-    date = DateField(label = "Meeting Date (yyyy-mm-dd)")
-    startTime = TimeField(label = "Start Time (hh:mm, military time)")
-    endTime = TimeField(label = "End Time (hh:mm, military time)")
+    date = DateField(label = "Meeting Date", widget=TextInput(
+        attrs={'type': 'date'}
+    ))
+    startTime = TimeField(label = "Start Time", widget=TextInput(
+        attrs={'type': 'time'}
+    ))
+    endTime = TimeField(label = "End Time", widget=TextInput(
+        attrs={'type': 'time'}))

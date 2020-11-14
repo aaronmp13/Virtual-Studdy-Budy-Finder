@@ -75,18 +75,21 @@
                         <img class="profile_pic" src="{% static "virtualstuddybuddy/aliBitmoji.png" %}"
                              alt="Profile Picture">
                     {% endif %}
+                <div class="userAtDiv">
+                <h6 class="usernameTag">Username</h6>
+                    <span class="username">@{{ profile.username }}</span>
+                    </div>
                 </div>
 
                 <div class="col-lg-8 col-md-12 col-sm-12 desc">
                     <h6>Bio</h6>
+                    <hr>
                     <span>{{ profile.description }}</span>
                 </div>
 
             </div>
             <div class="row zeroMarg">
                 <div class="col-lg-2 col-md-12 cold-sm-12 userDiv">
-                    <h6 class="usernameTag">Username</h6>
-                    <span class="username">@{{ profile.username }}</span>
                     {% if user.username == profile.username %}
                         <a type="button" class="btn btn-dark btn-lg editBtn" href="{% url 'editProfile' %}">Edit
                             Profile</a>
@@ -94,11 +97,13 @@
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12 desc">
                     <h6>Coursework</h6>
+                    <hr>
                     <span>{{ profile.coursework }}</span>
                 </div>
 
                 <div class="col-lg-4 col-md-12 col-sm-12 desc">
                     <h6>Attributes</h6>
+                    <hr>
                     <ul>
                         <li>{{ profile.major }}</li>
                         <li>{{ profile.gender }}</li>

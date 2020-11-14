@@ -113,9 +113,9 @@ class Profile(models.Model):
 
 
 class StudyGroup(models.Model):
-    group_name = models.CharField(max_length=50, default="New Group", unique=True,
+    group_name = models.CharField(max_length=50, default="", unique=True,
                                   validators=[MinLengthValidator(1), MaxLengthValidator(50)])
-    group_description = models.CharField(max_length=300, default="Study Group",
+    group_description = models.CharField(max_length=300, default="",
                                          validators=[MinLengthValidator(1), MaxLengthValidator(2000)])
     profiles = models.ManyToManyField(Profile)
 

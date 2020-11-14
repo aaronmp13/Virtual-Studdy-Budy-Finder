@@ -62,9 +62,29 @@
 
 <div class="profile_page">
     <h1 class="centered"> Study Groups I Can Join! </h1>
-
+    <div class="">
     {% if groups %}
         {% for group in groups %}
+
+{#            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">#}
+{#                <div class="card-header"><span><a class="username_link" href="/virtualstudybuddy/group/{{ group.pk }}">{{ group }}</a></span></div>#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">{{ group.group_description }}</h5>#}
+{#                    <h6>Roster</h6>#}
+{#                <hr>#}
+{#                    <ul class="card-text">#}
+{#                        {% for person in group.profiles.all %}#}
+{#                            <li><a class="username_link"#}
+{#                                   href="/virtualstudybuddy/profile/{{ person.pk }}/">@{{ person.username }}</a>#}
+{#                            </li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
+{#                <hr>#}
+{#                    <a href="/virtualstudybuddy/joingroup/{{ group.pk }}">#}
+{#                        <button type="button" class="btn btn-outline-light btn-lg download centerElementsOnly">Join This Group</button>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
 
 
             <div class="row imgAndDesc zeroMarg find_friends">
@@ -72,10 +92,16 @@
                 <div class="col-lg-2 col-md-4 col-sm-4 desc">
                     <h5>Group Name</h5>
                     <hr>
+                    <div class="centerElementsOnly">
                     <span><a class="username_link" href="/virtualstudybuddy/group/{{ group.pk }}">{{ group }}</a></span>
+                        </div>
+                    <hr>
+
+                    <div class="centerElementsOnly">
                     <a href="/virtualstudybuddy/joingroup/{{ group.pk }}">
                         <button type="button" class="btn btn-outline-light btn-lg download">Join This Group</button>
                     </a>
+                        </div>
                 </div>
 
                 <div class="col-lg-4 col-md-8 col-sm-8 desc">
@@ -100,7 +126,7 @@
             </div>
 
         {% endfor %}
-
+    </div>
     {% else %}
         <h2 class="centerElementsOnly"> There aren't any groups that you haven't joined!</h2>
     {% endif %}

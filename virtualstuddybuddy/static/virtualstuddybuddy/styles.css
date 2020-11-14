@@ -35,6 +35,10 @@ body{
     background-color: blueviolet;
 }
 
+.navbarbackground{
+    background-color: blueviolet;
+}
+
 .navbar-brand {
   font-family: "Ubuntu";
   font-size: 2.5rem;
@@ -164,6 +168,11 @@ hr{
 .userDiv{
     text-align: center;
     margin-top:2%;
+}
+
+.userAtDiv{
+    text-align: center;
+    margin-top:5%;
 }
 
 .lastEle{
