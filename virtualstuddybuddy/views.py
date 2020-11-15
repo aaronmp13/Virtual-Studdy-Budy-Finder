@@ -37,6 +37,29 @@ def my_inbox(request):
     messages_to_user=current_inbox.usermessage_set.all()
     return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
 
+def compose_message(request):
+    current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
+
+    if request.method == 'POST': #Message Sent
+        form = MessageForm(request.POST)
+        g = None
+        if form.is_valid():
+            g = form.save()
+            g.sender_username=current_user.username
+            recipient=Profile.objects.all().filter(username=g.recipient_username)[0]
+            recipient_inbox=recipient.userinbox
+            g.save()
+            recipient_inbox.usermessage_set.add(g)
+
+        else: #If the form is invalid, just make them fill it out again
+            form = MessageForm(request.POST)
+            return render(request, 'virtualstuddybuddy/composemessage.html', context={'form':form})
+
+        return HttpResponseRedirect('/virtualstudybuddy/inbox')
+    else:
+        form = MessageForm()
+        return render(request, 'virtualstuddybuddy/composemessage.html', context = {"form": form})
+
 def signup(request): #How we handle signups and logins
     if not request.user.is_authenticated: #redirects to login if they haven't done that yet
         return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
