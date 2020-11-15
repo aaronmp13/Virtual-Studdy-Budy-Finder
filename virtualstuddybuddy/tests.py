@@ -181,17 +181,17 @@ class GroupFormTestCases(TestCase):
 class CreateMeetingTestCases(TestCase):
 	def test_setup(self):
 		g = "vsb test"
-		emails = ["mtmenon123@gmail.com", "mtmenon1234@gmail.com","mtmenon12345@gmail.com",]
+		emails = ["mtmenon123@gmail.com"]
 		date = "2020-11-14"
 		startTime = "10:00:00"
 		endTime = "14:00:00"
 		m = googleMeet.createMeeting(g, emails, date, startTime, endTime)
 
-		self.assertEqual(m, googleMeet.createMeeting("vsb test", ["mtmenon123@gmail.com", "mtmenon1234@gmail.com","mtmenon12345@gmail.com"], "2020-11-14", "10:00:00", "14:00:00"))
+		self.assertEqual(m, googleMeet.createMeeting("vsb test", ["mtmenon123@gmail.com"], "2020-11-14", "10:00:00", "14:00:00"))
 
 	def valid_input(self):
 		g = "vsb test"
-		emails = "mtmenon123@gmail.com", "mtmenon1234@gmail.com","mtmenon12345@gmail.com"
+		emails = "mtmenon123@gmail.com"
 		date = "2020-11-14"
 		startTime = "10:00:00"
 		endTime = "14:00:00"

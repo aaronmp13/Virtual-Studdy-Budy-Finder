@@ -69,3 +69,9 @@ class MessageForm(ModelForm):
             'subject': TextInput(attrs={'placeholder': 'Study Session on Tuesday'}),
             'message': Textarea(attrs={'rows': 3,'placeholder': 'Awesome CS Group is meeting on Tuesday at 5PM, wanna join?'}),
         }
+
+    def clean_recipient_username(self):
+        data = self.cleaned_data['recipient_username']
+        if not Profile.objects.all().filter(username=data).exists():
+            raise ValidationError("Username does not exist")
+        return data
