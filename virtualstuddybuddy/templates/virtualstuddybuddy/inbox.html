@@ -1,5 +1,8 @@
 {% load static %}
 {% load socialaccount %}
+{% load crispy_forms_tags %}
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -22,6 +25,10 @@
 </head>
 
 <body>
+<section id="title">
+
+    <div class="container-fluid">
+
 
         <!-- Nav Bar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
@@ -65,71 +72,64 @@
             </div>
         </nav>
 
-<div class="profile_page">
-    <h1 class="centered"> My Groups! </h1>
 
-    {% if groups %}
-        {% for group in groups %}
+        <h3 class="find_friends" style="text-align:center">My Inbox!</h3>
+        <hr>
 
 
-            <div class="row imgAndDesc zeroMarg find_friends">
-                <hr>
-                <div class="col-lg-2 col-md-4 col-sm-4 desc">
-                    <h5>Group Name</h5>
-                    <hr>
-                    <div class="centerElementsOnly">
-                    <span><a class="username_link" href="/virtualstudybuddy/group/{{ group.pk }}">{{ group }}</a></span>
-                        </div>
-                    <div class="centerElementsOnly">
-                    <a href="/virtualstudybuddy/meetgroup/{{ group.pk }}">
-                        <hr>
-                        <button type="button" class="btn btn-outline-light btn-lg download">Meet Group
-                        </button>
-                    </a>
-                    <a href="/virtualstudybuddy/leavegroup/{{ group.pk }}">
-                        <button type="button" class="btn btn-danger btn-lg download">Leave Group</button>
-                    </a>
-                        </div>
-                </div>
+        {% if allMessages %}
+            <div class="row">
 
-                <div class="col-lg-4 col-md-8 col-sm-8 desc">
-                    <h5>Group Description</h5>
-                    <hr>
-                    <span>{{ group.group_description }}</span>
-                </div>
-
-                <div class="col-lg-3 col-md-8 col-sm-8 desc">
-                    <h5>Group Roster</h5>
-                    <hr>
-                    <ul>
-                        {% for person in group.profiles.all %}
-                            <li><a class="username_link"
-                                   href="/virtualstudybuddy/profile/{{ person.pk }}/">@{{ person.username }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                <div class="col-lg-3 col-md-4 col-sm-4">
+                    <h4>Sender Username</h4>
 
                 </div>
-                <hr>
+
+                <div class="col-lg-3 col-md-4 col-sm-4">
+                    <h4>Subject</h4>
+                </div>
+
+                <div class="col-lg-5 col-md-4 col-sm-4">
+                    <h4>Message</h4>
+                </div>
+
             </div>
 
-        {% endfor %}
+            <hr>
 
-    {% else %}
-        <h3 class="centered"> Looks like you aren't in any groups, join or create one!</h3>
-    {% endif %}
 
-    <div class="centerElementsOnly">
-        <a href="/virtualstudybuddy/creategroup/">
-            <button type="button" class="btn btn-dark btn-lg download">Create Group!</button>
-        </a>
+            {% for message in allMessages %}
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span class="">{{ message.sender_username }}</span>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span class="">{{ message.subject }}</span>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span>{{ message.message }}</span>
+                    </div>
+
+
+
+                </div>
+
+                <hr>
+
+            {% endfor %}
+
+
+
+
+        {% else %}
+            <p>Nobody has messaged you yet!</p>
+        {% endif %}
+
+
     </div>
-
-
-</div>
-
-<div class="lastEle"></div>
-
-
+</section>
 </body>
 </html>

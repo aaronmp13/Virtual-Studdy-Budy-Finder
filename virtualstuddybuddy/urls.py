@@ -28,6 +28,8 @@ urlpatterns = [
     path('meetgroup/<int:pk>/', views.meetgroup, name="meetgroup"),
     path('joingroup/<int:pk>', views.join_group, name="joingroup"),
 
+    path('inbox/', views.my_inbox, name="myinbox"),
+
     path('chat/', views.chatindex, name='chatindex'),
     path('chat/<str:room_name>/', views.room, name='room'),
 ] 

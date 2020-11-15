@@ -24,42 +24,47 @@
 
 <body>
 <!-- Nav Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a>
-                    <!--google login-->
-                {% else %}
-                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
-                {% endif %}
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
-            </li>
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a>
+                            <!--google login-->
+                        {% else %}
+                            <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
+                    </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
-            </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
+                    </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
-                <!-- this should just direct people to their profile page-->
-            </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/inbox">Inbox</a>
+                        <!-- this should just direct people to their profile page-->
+                    </li>
 
-        </ul>
-    </div>
-</nav>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
+                        <!-- this should just direct people to their profile page-->
+                    </li>
 
+                </ul>
+            </div>
+        </nav>
 <h1>Welcome to the match page @{{ matcher.username }}!</h1>
 <h2>You have been added to @{{ matchee.username }} potential matches. They will contact you via email if they wish to
     study with you!</h2>
