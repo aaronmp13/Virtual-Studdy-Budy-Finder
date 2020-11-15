@@ -160,6 +160,6 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-This code makes Travis CI and Heroku work (but it feels like theres a better solution)
+#This code makes Travis CI and Heroku work (but it feels like theres a better solution)
 if '/app' in os.environ['HOME']:
     django_heroku.settings(locals())
