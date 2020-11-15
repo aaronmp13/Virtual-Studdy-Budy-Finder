@@ -134,6 +134,12 @@ hr {
     padding-top: 15px;
 }
 
+.compose_msg_padding {
+    padding-top:7%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
 .imgAndDesc {
     padding-top: 15px;
 }
