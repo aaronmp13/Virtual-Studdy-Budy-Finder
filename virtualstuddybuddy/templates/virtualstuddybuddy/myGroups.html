@@ -23,41 +23,47 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a>
-                    <!--google login-->
-                {% else %}
-                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
-                {% endif %}
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
-            </li>
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark container-fluid">
+            <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a>
+                            <!--google login-->
+                        {% else %}
+                            <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
+                    </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
-            </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
+                    </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
-                <!-- this should just direct people to their profile page-->
-            </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/inbox">Inbox</a>
+                        <!-- this should just direct people to their profile page-->
+                    </li>
 
-        </ul>
-    </div>
-</nav>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
+                        <!-- this should just direct people to their profile page-->
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
 
 <div class="profile_page">
     <h1 class="centered"> My Groups! </h1>
@@ -70,27 +76,35 @@
                 <hr>
                 <div class="col-lg-2 col-md-4 col-sm-4 desc">
                     <h5>Group Name</h5>
+                    <hr>
+                    <div class="centerElementsOnly">
                     <span><a class="username_link" href="/virtualstudybuddy/group/{{ group.pk }}">{{ group }}</a></span>
+                        </div>
+                    <div class="centerElementsOnly">
                     <a href="/virtualstudybuddy/meetgroup/{{ group.pk }}">
-                        <button type="button" class="btn btn-outline-light btn-lg download">Meet With This Group
+                        <hr>
+                        <button type="button" class="btn btn-outline-light btn-lg download">Meet Group
                         </button>
                     </a>
                     <a href="/virtualstudybuddy/leavegroup/{{ group.pk }}">
-                        <button type="button" class="btn btn-dark btn-lg download">Leave This Group</button>
+                        <button type="button" class="btn btn-danger btn-lg download">Leave Group</button>
                     </a>
+                        </div>
                 </div>
 
                 <div class="col-lg-4 col-md-8 col-sm-8 desc">
                     <h5>Group Description</h5>
+                    <hr>
                     <span>{{ group.group_description }}</span>
                 </div>
 
                 <div class="col-lg-3 col-md-8 col-sm-8 desc">
                     <h5>Group Roster</h5>
+                    <hr>
                     <ul>
                         {% for person in group.profiles.all %}
                             <li><a class="username_link"
-                                   href="/virtualstudybuddy/profile/{{ person.pk }}/">@{{ person.username }}</a>, {{ person.name }}
+                                   href="/virtualstudybuddy/profile/{{ person.pk }}/">@{{ person.username }}</a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -102,7 +116,7 @@
         {% endfor %}
 
     {% else %}
-        <h1> Looks like you aren't in any groups!</h1>
+        <h3 class="centered"> Looks like you aren't in any groups, join or create one!</h3>
     {% endif %}
 
     <div class="centerElementsOnly">

@@ -1,5 +1,7 @@
 {% load static %}
 {% load socialaccount %}
+{% load crispy_forms_tags %}
+
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -22,12 +24,74 @@
     <link rel="stylesheet" type="text/css" href="{% static 'virtualstuddybuddy/styles.css' %}">
 </head>
 
-<body>
-<h1 style="color:white">VirtualStudyBuddy Create Meeting</h1>
+<body class="profile_page">
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a>
+                            <!--google login-->
+                        {% else %}
+                            <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
+                    </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/inbox">Inbox</a>
+                        <!-- this should just direct people to their profile page-->
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
+                        <!-- this should just direct people to their profile page-->
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+<div class="profile_page">
+<div class="container-fluid">
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
+
+    <div class="form-row">
+        <div class="form-group signupForms col-md-4 mb-0">
+            {{ form.date|as_crispy_field:"bootstrap4" }}
+        </div>
+
+        <div class="form-group signupForms col-md-4 mb-0">
+            {{ form.startTime|as_crispy_field:"bootstrap4" }}
+        </div>
+
+        <div class="form-group signupForms col-md-4 mb-0">
+            {{ form.endTime|as_crispy_field:"bootstrap4" }}
+        </div>
+    </div>
+
+
+                <div class="centerElementsOnly">
+                <button type="submit" class="btn btn-outline-success btn-lg download">Meet!</button>
+            </div>
+
 </form>
+</div>
+</div>
 </body>

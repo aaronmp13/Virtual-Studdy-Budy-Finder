@@ -1,5 +1,6 @@
 {% load static %}
 {% load socialaccount %}
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -23,11 +24,135 @@
 </head>
 
 <body>
-<h1 style="color:white">VirtualStudyBuddy Signup</h1>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a>
+                            <!--google login-->
+                        {% else %}
+                            <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/virtualstudybuddy/inbox">Inbox</a>
+                        <!-- this should just direct people to their profile page-->
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
+                        <!-- this should just direct people to their profile page-->
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+<div class="profile_page">
+    <div class="container-fluid">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.management_form }}
+
+
+            <div class="form-row">
+
+                <div class="form-group signupForms col-md-6 mb-0">
+                    <label>Email Address</label>
+                    <input class="form-control" type="text" placeholder="{{ user.email }}" readonly>
+                </div>
+
+                {# fields = ["username", "name", "gender", "major", "age", "description", "coursework", "classOf", "picture"] #}
+
+                <div class="form-group signupForms col-md-6 mb-0">
+                    {{ form.name|as_crispy_field:"bootstrap4" }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group signupForms col-md-4 mb-0">
+                    {{ form.username|as_crispy_field:"bootstrap4" }}
+                </div>
+
+                <div class="form-group signupForms col-md-4 mb-0">
+                    {{ form.gender|as_crispy_field:"bootstrap4" }}
+                </div>
+
+                <div class="form-group signupForms col-md-4 mb-0">
+                    {{ form.age|as_crispy_field:"bootstrap4" }}
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group signupForms col-md-6 mb-0">
+                    {{ form.major|as_crispy_field:"bootstrap4" }}
+                </div>
+                <div class="form-group signupForms col-md-6 mb-0">
+                    {{ form.classOf|as_crispy_field:"bootstrap4" }}
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group signupForms col-md-6 mb-0">
+                    {{ form.description|as_crispy_field:"bootstrap4" }}
+                </div>
+
+                <div class="form-group signupForms col-md-6 mb-0">
+                    {{ form.coursework|as_crispy_field:"bootstrap4" }}
+                    <small id="emailHelp" class="form-text text-muted">Feel free to include past and present coursework.</small>
+
+                </div>
+            </div>
+            
+
+            <div class="form-group signupForms">
+                <label>Profile Picture</label>
+                <label class="btn btn-outline-secondary btn-md">
+                    Upload Photo
+                    {{ form.picture }}
+                </label>
+            </div>
+
+
+            {#    {% for Form in form %}#}
+            {##}
+            {##}
+            {##}
+            {#        <h4>{{ Form.label_tag }}</h4>#}
+            {#        {{ Form }}#}
+            {#        <hr>#}
+            {##}
+            {##}
+            {##}
+            {##}
+            {#    {% endfor %}#}
+
+
+            <div class="centerElementsOnly">
+                <button type="submit" class="btn btn-primary btn-lg download">Join The Community!</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>

@@ -61,9 +61,9 @@ def createMeeting(group_name, emails, date, startTime, endTime):
 
     event = service.events().insert(calendarId='primary', sendUpdates = "all", body=event, conferenceDataVersion = 1).execute()
 
-g = "vsb test"
-emails = ["mtmenon123@gmail.com", "mtmenon1234@gmail.com","mtmenon12345@gmail.com",]
-date = "2020-11-14"
-startTime = "10:00:00"
-endTime = "14:00:00"
-createMeeting(g, emails, date, startTime, endTime)
+# g = "vsb test"
+# emails = ["mtmenon123@gmail.com", "mtmenon1234@gmail.com","mtmenon12345@gmail.com",]
+# date = "2020-11-14"
+# startTime = "10:00:00"
+# endTime = "14:00:00"
+# createMeeting(g, emails, date, startTime, endTime)

@@ -53,3 +53,4 @@ migrations/__pycache__/
 docs/_build/
 
 .vs/
+.vscode/

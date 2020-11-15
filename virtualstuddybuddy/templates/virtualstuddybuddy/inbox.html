@@ -1,5 +1,8 @@
 {% load static %}
 {% load socialaccount %}
+{% load crispy_forms_tags %}
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -69,32 +72,67 @@
             </div>
         </nav>
 
-        <div class="row">
 
-            <div class="col-lg-6 col-md-12 col-sm-12">
-                <h1 class="main-text">Meet new people to study with!</h1>
+        <h3 class="find_friends" style="text-align:center">My Inbox!</h3>
+        <hr>
 
-                <a href="{% url 'signup' %}" class="btn btn-dark btn-lg download">View Profile</a>
-                <a href="{% url 'creategroup' %}" type="button" class="btn btn-outline-light btn-lg download">Create
-                    Group</a>
+
+        {% if allMessages %}
+            <div class="row">
+
+                <div class="col-lg-3 col-md-4 col-sm-4">
+                    <h4>Sender Username</h4>
+
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-4">
+                    <h4>Subject</h4>
+                </div>
+
+                <div class="col-lg-5 col-md-4 col-sm-4">
+                    <h4>Message</h4>
+                </div>
+
             </div>
 
-            <div class="col-lg-5 col-md-12 col-sm-12">
-                <img class="index_pic" src="{% static "virtualstuddybuddy/books-transparent-background-9.png" %}">
-
-            </div>
+            <hr>
 
 
-            {#    <div class ="col-lg-6 col-md-12 col-sm-12">#}
-            {#      <img class="title-image" src="" alt="study-buddies">#}
-            {#    </div>#}
+            {% for message in allMessages %}
+                <div class="row">
 
-        </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span class="">{{ message.sender_username }}</span>
+                    </div>
 
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span class="">{{ message.subject }}</span>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span>{{ message.message }}</span>
+                    </div>
+
+
+
+                </div>
+
+                <hr>
+
+            {% endfor %}
+
+
+
+
+        {% else %}
+            <p>Nobody has messaged you yet!</p>
+        {% endif %}
+
+    <div class="centerElementsOnly">
+        <a href="{% url 'composemessage' %}" class="btn btn-outline-light btn-lg download">Compose Message</a>
     </div>
 
-
+    </div>
 </section>
-
 </body>
 </html>
