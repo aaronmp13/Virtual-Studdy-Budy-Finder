@@ -9,6 +9,8 @@ from django.http import HttpRequest
 from django.db import DataError
 from .forms import *
 from .googleMeet import createMeeting
+from django.contrib.auth import logout
+
 
 # Create your views here.
 
@@ -92,6 +94,10 @@ def signup(request): #How we handle signups and logins
         else:
             form = ProfileForm()											#If the user hasn't filled out a profile yet
             return render(request, 'virtualstuddybuddy/signup.html', {'form':form}) 	#Direct them to the signup form
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/virtualstudybuddy')
 
 def editProfile(request):
     p = Profile.objects.all().filter(username=request.user.get_username())[0]

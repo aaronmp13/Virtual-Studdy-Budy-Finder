@@ -11,6 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls), #admin
     path('accounts/', include('allauth.urls')), #google login
     path('signup/', views.signup, name = "signup"),
+    path('logout/', views.logout_view, name= "logout"),
     
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'), #profile page
     path('editProfile/', views.editProfile, name = "editProfile"),
