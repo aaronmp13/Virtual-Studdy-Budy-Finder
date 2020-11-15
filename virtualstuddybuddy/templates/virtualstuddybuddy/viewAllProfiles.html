@@ -120,7 +120,7 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">
                         <a href="/virtualstudybuddy/profile/{{ profile.pk }}/"><span
                                 class="username_link">@{{ profile.username }}</span></a>
-                        {#                <a type="button" class="btn btn-dark btn-sm" href="/virtualstudybuddy/match/{{ profile.pk }}">Match</a>#}
+                        <a type="button" class="btn btn-dark btn-sm" href="{% url 'composemessage' target=profile.username %}">Message User</a>
                     </div>
 
                     <div class="col-lg-2 col-md-2 col-sm-2 all_attributes">

@@ -37,7 +37,7 @@ def my_inbox(request):
     messages_to_user=current_inbox.usermessage_set.all()
     return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
 
-def compose_message(request):
+def compose_message(request, target=None):
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
 
     if request.method == 'POST': #Message Sent
@@ -58,6 +58,8 @@ def compose_message(request):
         return HttpResponseRedirect('/virtualstudybuddy/inbox')
     else:
         form = MessageForm()
+        if target:
+            form = MessageForm(initial = {'recipient_username':target})
         return render(request, 'virtualstuddybuddy/composemessage.html', context = {"form": form})
 
 def signup(request): #How we handle signups and logins

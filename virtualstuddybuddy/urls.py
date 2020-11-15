@@ -30,6 +30,7 @@ urlpatterns = [
 
     path('inbox/', views.my_inbox, name="myinbox"),
     path('composemessage/', views.compose_message, name="composemessage"),
+    path('composemessage/<str:target>', views.compose_message, name="composemessage"),
 
     path('chat/', views.chatindex, name='chatindex'),
     path('chat/<str:room_name>/', views.room, name='room'),
