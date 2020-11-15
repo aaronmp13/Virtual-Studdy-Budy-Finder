@@ -23,6 +23,9 @@ class ProfileView(generic.DetailView):
 def index(request):
     return render(request, 'virtualstuddybuddy/index.html')
 
+def chatindex(request):
+    return render(request, 'virtualstuddybuddy/chatindex.html')
+
 def signup(request): #How we handle signups and logins
 	if not request.user.is_authenticated: #redirects to login if they haven't done that yet
 		return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')

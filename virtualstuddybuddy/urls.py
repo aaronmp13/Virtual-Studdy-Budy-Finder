@@ -26,5 +26,7 @@ urlpatterns = [
     path('editgroup/<int:pk>/', views.editgroup, name="editgroup"),
     path('leavegroup/<int:pk>/', views.leavegroup, name="leavegroup"),
     path('meetgroup/<int:pk>/', views.meetgroup, name="meetgroup"),
-    path('joingroup/<int:pk>', views.join_group, name="joingroup")
+    path('joingroup/<int:pk>', views.join_group, name="joingroup"),
+
+    path('chat/', views.chatindex, name='chatindex')
 ] 
