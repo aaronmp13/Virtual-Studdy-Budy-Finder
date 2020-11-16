@@ -97,13 +97,30 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
+# DATABASES = { #Old database
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
+DATABASES = { #New database, now is synced with Heroku database
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dfpeitqm9aflhu',
+        'USER': 'vptrgkipijypzr',
+        'PASSWORD': '6e14dc9c02e39d55b03d7c2119302b738da33788fbee1dbd8273089b242767cb',
+        'HOST': 'ec2-52-70-15-120.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
-
+import sys
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase'
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
