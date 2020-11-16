@@ -34,6 +34,9 @@ def room(request, room_name):
     })
 
 def my_inbox(request):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
+
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
     current_inbox = current_user.userinbox
     messages_to_user=current_inbox.usermessage_set.all()
@@ -63,6 +66,16 @@ def compose_message(request, target=None):
         if target:
             form = MessageForm(initial = {'recipient_username':target})
         return render(request, 'virtualstuddybuddy/composemessage.html', context = {"form": form})
+
+def delete_message(request, pk):
+    message = get_object_or_404(UserMessage, pk=pk)
+    message.delete()
+
+    current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
+    current_inbox = current_user.userinbox
+    messages_to_user=current_inbox.usermessage_set.all()
+    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
+    
 
 def signup(request): #How we handle signups and logins
     if not request.user.is_authenticated: #redirects to login if they haven't done that yet

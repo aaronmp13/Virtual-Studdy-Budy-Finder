@@ -22,7 +22,7 @@ urlpatterns = [
     
     path('mygroups/', views.my_groups, name="mygroups"),
     path('allgroups/', views.all_groups, name="allgroups"),
-    path('group/<int:pk>/', views.group_page, name='group'), #profile page
+    path('group/<int:pk>/', views.group_page, name='group'), 
     path('creategroup/', views.creategroup, name = "creategroup"),
     path('editgroup/<int:pk>/', views.editgroup, name="editgroup"),
     path('leavegroup/<int:pk>/', views.leavegroup, name="leavegroup"),
@@ -32,6 +32,7 @@ urlpatterns = [
     path('inbox/', views.my_inbox, name="myinbox"),
     path('composemessage/', views.compose_message, name="composemessage"),
     path('composemessage/<str:target>', views.compose_message, name="composemessage"),
+    path('deletemessage/<int:pk>', views.delete_message, name="deletemessage"),
 
     path('chat/', views.chatindex, name='chatindex'),
     path('chat/<str:room_name>/', views.room, name='room'),
