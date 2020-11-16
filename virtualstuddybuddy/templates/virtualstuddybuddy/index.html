@@ -24,11 +24,11 @@
 <body>
 <section id="title">
 
-    <div class="container-fluid">
+    <div class="">
 
 
         <!-- Nav Bar -->
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark container-fluid">
             <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,38 +38,52 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         {% if user.is_authenticated %}
-                            <a class="nav-link" href="{% url 'account_logout' %}">Welcome , {{ user.username }} !</a>
-                            <!--google login-->
+
                         {% else %}
                             <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
                         {% endif %}
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
+                        {% if user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
+                        {% endif %}
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
+                        {% if user.is_authenticated %}
+                            <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
+                        {% endif %}
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
+                        {% if user.is_authenticated %}
+                            <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
+                        {% endif %}
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/virtualstudybuddy/inbox">Inbox</a>
+                        {% if user.is_authenticated %}
+                            <a class="nav-link" href="/virtualstudybuddy/inbox">Inbox</a>
+                        {% endif %}
+                    </li>
+
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                           <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
+                        {% endif %}
                         <!-- this should just direct people to their profile page-->
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
-                        <!-- this should just direct people to their profile page-->
+                        {% if user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'logout' %}">Signout ({{ user.username }})</a>
+                        {% endif %}
                     </li>
 
                 </ul>
             </div>
         </nav>
 
-        <div class="row">
+        <div class="row container-fluid">
 
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <h1 class="main-text">Meet new people to study with!</h1>
