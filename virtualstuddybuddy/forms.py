@@ -44,13 +44,13 @@ class GroupForm(ModelForm):
 
 class MeetForm(Form):
     date = DateField(label="Meeting Date", widget=TextInput(
-        attrs={'type': 'date'}
+        attrs={'type': 'date', 'placeholder': 'mm/dd/yyyy'}
     ))
     startTime = TimeField(label="Start Time", widget=TextInput(
-        attrs={'type': 'time'}
+        attrs={'type': 'time', 'placeholder': 'hh:mm AM or hh:mm PM'}
     ))
     endTime = TimeField(label="End Time", widget=TextInput(
-        attrs={'type': 'time'}))
+        attrs={'type': 'time', 'placeholder': 'hh:mm AM or hh:mm PM'}))
     
     def clean_date(self):
         date = self.cleaned_data['date']
