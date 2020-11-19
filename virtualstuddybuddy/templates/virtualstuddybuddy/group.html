@@ -23,9 +23,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'virtualstuddybuddy/styles.css' %}">
 </head>
 
-<body>
+<body class="profile_page">
 
-<nav class="navbar navbar-expand-lg navbar-dark container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark container-fluid navbarbackground">
     <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +74,7 @@
     </div>
 </nav>
 
-<div class="profile_page">
+<div class="">
     <h1 class="centered">{{ studygroup.group_name }} Group Page </h1>
 
     <div class="centerElementsOnly">
@@ -151,11 +151,11 @@
             {% endfor %}
 
         {% else %}
-            <p>Nobody has messaged you yet!</p>
+            <h6 class="centerElementsOnly">Nobody has messaged in the group chat yet</h6>
         {% endif %}
         </div>
 
-        <div class="profile_page centerElementsOnly">
+        <div class="centerElementsOnly">
             <div class="container-fluid centerElementsOnly">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
