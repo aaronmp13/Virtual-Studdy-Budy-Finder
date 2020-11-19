@@ -198,6 +198,14 @@ hr {
     padding-bottom: 120px;
 }
 
+.enbolden {
+    font-weight: bold;
+}
+
+.blueviolettext {
+    color:blueviolet;
+}
+
 .zeroMarg {
     margin-left: 0;
     margin-right: 0;

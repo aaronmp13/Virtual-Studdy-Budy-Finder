@@ -89,7 +89,7 @@
                 <div class="row">
 
                     <div class="col-lg-3 col-md-4 col-sm-4">
-                        <h4>Sender Username</h4>
+                        <h4>Sender</h4>
 
                     </div>
 
@@ -97,8 +97,8 @@
                         <h4>Subject</h4>
                     </div>
 
-                    <div class="col-lg-5 col-md-4 col-sm-4">
-                        <h4>Message</h4>
+                    <div class="col-lg-6 col-md-4 col-sm-4">
+                        <h4></h4>
                     </div>
 
                 </div>
@@ -110,17 +110,51 @@
                     <div class="row">
 
                         <div class="col-lg-3 col-md-3 col-sm-3">
-                            <span class="">{{ message.sender_username }}</span>
-                            <a type="button" class="btn btn-dark btn-sm" href="{% url 'deletemessage' pk=message.id %}">Delete
-                                Message</a>
+                            <span class="">@{{ message.sender_username }}</span>
                         </div>
 
                         <div class="col-lg-3 col-md-3 col-sm-3">
-                            <span class="">{{ message.subject }}</span>
+                            <span class="enbolden">{{ message.subject }}</span>
                         </div>
 
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <span>{{ message.message }}</span>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            {#                            <span>{{ message.message }}</span>#}
+                            <button type="button" class="btn btn-light" data-toggle="modal"
+                                    data-target="#message{{ message.pk }}">
+                                Read Message
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="message{{ message.pk }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title blueviolettext"
+                                                id="exampleModalLabel">{{ message.subject }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="blueviolettext">{{ message.message }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-success">Reply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <a type="button" class="btn btn-danger" href="{% url 'deletemessage' pk=message.id %}">Delete</a>
                         </div>
 
 
@@ -155,8 +189,10 @@
                         <h4>Subject</h4>
                     </div>
 
-                    <div class="col-lg-5 col-md-4 col-sm-4">
-                        <h4>Message</h4>
+                    <div class="col-lg-3 col-md-4 col-sm-4">
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-4">
                     </div>
 
                 </div>
@@ -165,17 +201,47 @@
                     <div class="row">
 
                         <div class="col-lg-3 col-md-3 col-sm-3">
-                            <span class="">{{ message.recipient_username }}</span>
-                            <a type="button" class="btn btn-dark btn-sm" href="{% url 'deletemessage' pk=message.id %}">Delete
-                                Message</a>
+                            <span class="">@{{ message.recipient_username }}</span>
                         </div>
 
                         <div class="col-lg-3 col-md-3 col-sm-3">
-                            <span class="">{{ message.subject }}</span>
+                            <span class="enbolden">{{ message.subject }}</span>
                         </div>
 
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <span>{{ message.message }}</span>
+                        <div class="col-lg-3 col-md-3 col-sm-6">
+                            <button type="button" class="btn btn-light" data-toggle="modal"
+                                    data-target="#message{{ message.pk }}">
+                                Read Message
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="message{{ message.pk }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title blueviolettext"
+                                                id="exampleModalLabel">{{ message.subject }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="blueviolettext">{{ message.message }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-success">Reply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-6">
+                            <a type="button" class="btn btn-danger" href="{% url 'deletemessage' pk=message.id %}">Delete</a>
                         </div>
 
 
