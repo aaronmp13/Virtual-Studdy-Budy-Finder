@@ -144,7 +144,7 @@
                                             <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
                                                 Close
                                             </button>
-                                            <button type="button" class="btn btn-success">Reply</button>
+                                            <a type="button" href="{% url 'composemessage' target=message.sender_username %}" class="btn btn-success">Reply</a>
                                         </div>
                                     </div>
                                 </div>
