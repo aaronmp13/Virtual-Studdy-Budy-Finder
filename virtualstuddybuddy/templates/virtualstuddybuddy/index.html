@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'virtualstuddybuddy/styles.css' %}">
 </head>
 
-<body>
+<body onload="checkBrowser()">
 <section id="title">
 
     <div class="">
@@ -86,6 +86,7 @@
         <div class="row container-fluid">
 
             <div class="col-lg-6 col-md-12 col-sm-12">
+                <h2 class="output-safari white-text"></h2>
                 <h1 class="main-text">Meet new people to study with!</h1>
 
                 <a href="{% url 'signup' %}" class="btn btn-dark btn-lg download">View Profile</a>
@@ -109,6 +110,49 @@
 
 
 </section>
+
+    <script>
+        function checkBrowser() {
+
+            // Get the user-agent string
+            let userAgentString =
+                navigator.userAgent;
+
+            // Detect Chrome
+            let chromeAgent =
+                userAgentString.indexOf("Chrome") > -1;
+
+            // Detect Internet Explorer
+            let IExplorerAgent =
+                userAgentString.indexOf("MSIE") > -1 ||
+                userAgentString.indexOf("rv:") > -1;
+
+            // Detect Firefox
+            let firefoxAgent =
+                userAgentString.indexOf("Firefox") > -1;
+
+            // Detect Safari
+            let safariAgent =
+                userAgentString.indexOf("Safari") > -1;
+
+            // Discard Safari since it also matches Chrome
+            if ((chromeAgent) && (safariAgent))
+                safariAgent = false;
+
+            // Detect Opera
+            let operaAgent =
+                userAgentString.indexOf("OP") > -1;
+
+            // Discard Chrome since it also matches Opera
+            if ((chromeAgent) && (operaAgent))
+                chromeAgent = false;
+
+
+            if (safariAgent)
+                document.querySelector(".output-safari").textContent
+                        = "Many design choices on VSB are not supported by Safari, please switch to Google Chrome if possible.";
+        }
+    </script>
 
 </body>
 </html>
