@@ -90,4 +90,4 @@ class GroupMessageForm(Form): #honestly not sure if its good to make a Django fo
 class SearchBarForm(Form): 
  
     query =  CharField(max_length = 100, label = "Search 🔍", required = False, 
-        widget=Textarea(attrs={'rows': 1,'placeholder': 'Biology Female 2023'}))
+        widget=TextInput(attrs={'placeholder': 'Biology Female 2023'}))
