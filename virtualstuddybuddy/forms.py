@@ -84,5 +84,10 @@ class MessageForm(ModelForm):
             raise ValidationError("Username does not exist")
         return data
 
-class GroupMessageForm(Form):
+class GroupMessageForm(Form): #honestly not sure if its good to make a Django form in this case but whatever
     message =  CharField(max_length = 100, label = "Message", widget=Textarea(attrs={'rows': 1,'placeholder': 'Awesome CS Group is meeting on Tuesday at 5PM, wanna join?'}))
+
+class SearchBarForm(Form): 
+ 
+    query =  CharField(max_length = 100, label = "Search 🔍", required = False, 
+        widget=Textarea(attrs={'rows': 1,'placeholder': 'Biology Female 2023'}))

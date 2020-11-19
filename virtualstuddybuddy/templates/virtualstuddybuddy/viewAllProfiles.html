@@ -1,5 +1,7 @@
 {% load static %}
 {% load socialaccount %}
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -80,6 +82,23 @@
         <div class="container-fluid">
         <h3 class="find_friends" style="text-align:center">Find friends to study with!</h3>
         <hr>
+
+        <div class="container-fluid">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            
+                <div class="form-row">
+                    <div class="form-group signupForms col-md-4 mb-0">
+                        {{ form.query|as_crispy_field:"bootstrap4" }}
+                    </div>
+
+                    <div class="centerElementsOnly">
+                        <button type="submit" class="btn btn-outline-dark btn-sm">Search</button>
+                    </div>
+                </div>                        
+            </form>
+        </div>
+
         {% if allProfiles %}
             <div class="row">
                 <div class="col-lg-2 col-md-4 col-sm-4">
@@ -111,7 +130,6 @@
             </div>
 
             <hr>
-
 
             {% for profile in allProfiles %}
                 <div class="row">

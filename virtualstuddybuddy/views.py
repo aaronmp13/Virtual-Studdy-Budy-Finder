@@ -11,7 +11,6 @@ from .forms import *
 from .googleMeet import createMeeting
 from django.contrib.auth import logout
 
-
 # Create your views here.
 
 from django.http import HttpResponse
@@ -80,7 +79,26 @@ def editProfile(request):
         return render(request, 'virtualstuddybuddy/editProfile.html', context = {"form": form})
 
 def get_profiles(request):
-    return render(request, 'virtualstuddybuddy/viewAllProfiles.html', context={'allProfiles': Profile.objects.all()})
+    allProfiles = Profile.objects.all()
+    query = ""
+    if request.method=='POST':
+        form = SearchBarForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            q = set(query.split())
+
+            allProfiles = []
+            for p in Profile.objects.all(): #I think this is pretty slow but luckily we are not gonna have 10000 profiles
+                profileString = str(p)
+                flag = True
+                for s in q:
+                    if s not in profileString:
+                        flag = False
+                if flag:
+                    allProfiles.append(p)
+        #return HttpResponseRedirect('/virtualstudybuddy/viewProfiles')
+    form = SearchBarForm(initial = {'query':query})
+    return render(request, 'virtualstuddybuddy/viewAllProfiles.html', context={'allProfiles': allProfiles, 'form': form})
 
 def manual_match(request, pk): #FIX THIS
     matcher = Profile.objects.all().filter(username=request.user.get_username())[0]
