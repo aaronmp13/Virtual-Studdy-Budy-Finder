@@ -137,3 +137,19 @@ class UserMessage(models.Model):
 
     def __str__(self):
         return self.sender_username + " to " + self.recipient_username + " Subject: " + self.subject
+
+class GroupInbox(models.Model):
+    group = models.OneToOneField(StudyGroup, on_delete=models.CASCADE) #each user has one inbox, each inbox belongs to one user
+
+    def __str__(self):
+        return "Inbox of: "+ self.group.group_name
+
+class GroupMessage(models.Model):
+    sender_username=models.CharField(max_length=20, default="", validators=[MinLengthValidator(3)])
+    #subject=models.CharField(max_length=50, default="", validators=[MinLengthValidator(1), MaxLengthValidator(50)])
+    recipient_group=models.CharField(max_length=20, default="", validators=[MinLengthValidator(3)])
+    message=models.CharField(max_length=1000, default="")
+    groupinbox=models.ForeignKey(GroupInbox, null=True, on_delete= models.SET_NULL)
+
+    def __str__(self):
+        return self.sender_username + " to " + self.recipient_group + " Subject: " + self.subject

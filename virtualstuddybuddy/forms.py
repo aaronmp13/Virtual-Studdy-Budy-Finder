@@ -75,3 +75,6 @@ class MessageForm(ModelForm):
         if not Profile.objects.all().filter(username=data).exists():
             raise ValidationError("Username does not exist")
         return data
+
+class GroupMessageForm(Form):
+    message =  CharField(max_length = 100, label = "Message", widget=Textarea(attrs={'rows': 1,'placeholder': 'Awesome CS Group is meeting on Tuesday at 5PM, wanna join?'}))

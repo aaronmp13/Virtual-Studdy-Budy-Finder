@@ -37,3 +37,7 @@ urlpatterns = [
     path('chat/', views.chatindex, name='chatindex'),
     path('chat/<str:room_name>/', views.room, name='room'),
 ] 
+
+#add reply?
+#add date restriction on meetings
+#add message user on profile page

@@ -21,61 +21,8 @@ class ProfileView(generic.DetailView):
     model = Profile
     template_name = 'virtualstuddybuddy/profile.html'
 
-
 def index(request):
     return render(request, 'virtualstuddybuddy/index.html')
-
-def chatindex(request):
-    return render(request, 'virtualstuddybuddy/chatindex.html')
-
-def room(request, room_name):
-    return render(request, 'virtualstuddybuddy/room.html', {
-        'room_name': room_name
-    })
-
-def my_inbox(request):
-    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
-        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
-
-    current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
-    current_inbox = current_user.userinbox
-    messages_to_user=current_inbox.usermessage_set.all()
-    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
-
-def compose_message(request, target=None):
-    current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
-
-    if request.method == 'POST': #Message Sent
-        form = MessageForm(request.POST)
-        g = None
-        if form.is_valid():
-            g = form.save()
-            g.sender_username=current_user.username
-            recipient=Profile.objects.all().filter(username=g.recipient_username)[0]
-            recipient_inbox=recipient.userinbox
-            g.save()
-            recipient_inbox.usermessage_set.add(g)
-
-        else: #If the form is invalid, just make them fill it out again
-            form = MessageForm(request.POST)
-            return render(request, 'virtualstuddybuddy/composemessage.html', context={'form':form})
-
-        return HttpResponseRedirect('/virtualstudybuddy/inbox')
-    else:
-        form = MessageForm()
-        if target:
-            form = MessageForm(initial = {'recipient_username':target})
-        return render(request, 'virtualstuddybuddy/composemessage.html', context = {"form": form})
-
-def delete_message(request, pk):
-    message = get_object_or_404(UserMessage, pk=pk)
-    message.delete()
-
-    current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
-    current_inbox = current_user.userinbox
-    messages_to_user=current_inbox.usermessage_set.all()
-    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
-    
 
 def signup(request): #How we handle signups and logins
     if not request.user.is_authenticated: #redirects to login if they haven't done that yet
@@ -180,9 +127,23 @@ def group_page(request, pk):
     current_group=get_object_or_404(StudyGroup, pk=pk)
     current_user=Profile.objects.all().filter(username=request.user.get_username())[0]
     in_group=False
+    current_inbox = current_group.groupinbox
+    messages_to_group=current_inbox.groupmessage_set.all()
+    form = GroupMessageForm()
+
+    if request.method=="POST":
+        form = GroupMessageForm(request.POST)
+        mess = ""
+        if form.is_valid():
+            mess = form.cleaned_data['message']
+            m = GroupMessage(message = mess, sender_username = current_user.username, recipient_group = current_group.group_name, groupinbox = current_inbox)
+            m.save()
+        return HttpResponseRedirect('/virtualstudybuddy/group/'+str(pk))
+        
     if current_user in current_group.profiles.all():
         in_group=True
-    return render(request, 'virtualstuddybuddy/group.html', context={'studygroup': current_group, 'inGroup': in_group})
+
+    return render(request, 'virtualstuddybuddy/group.html', context={'studygroup': current_group, 'inGroup': in_group, 'allMessages': messages_to_group, 'form':form})
 
 def creategroup(request):
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
@@ -192,6 +153,9 @@ def creategroup(request):
         if form.is_valid():
             g = form.save()
             g.profiles.add(current_user)
+            group_inbox=GroupInbox(group=g) #Create an inbox for the new group
+            group_inbox.save() #save the new inbox
+            print(str(group_inbox))
             g.save()
         else: #If the form is invalid, just make them fill it out again
             form = GroupForm(request.POST)
@@ -253,3 +217,54 @@ def meetgroup(request, pk):
     else:
         form = MeetForm()
         return render(request, 'virtualstuddybuddy/meetgroup.html', context = {"form": form})
+
+def chatindex(request):
+    return render(request, 'virtualstuddybuddy/chatindex.html')
+
+def room(request, room_name):
+    return render(request, 'virtualstuddybuddy/room.html', {
+        'room_name': room_name
+    })
+
+def my_inbox(request):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
+
+    current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
+    current_inbox = current_user.userinbox
+    messages_to_user=current_inbox.usermessage_set.all()
+    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
+
+def compose_message(request, target=None):
+    current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
+
+    if request.method == 'POST': #Message Sent
+        form = MessageForm(request.POST)
+        g = None
+        if form.is_valid():
+            g = form.save()
+            g.sender_username=current_user.username
+            recipient=Profile.objects.all().filter(username=g.recipient_username)[0]
+            recipient_inbox=recipient.userinbox
+            g.save()
+            recipient_inbox.usermessage_set.add(g)
+
+        else: #If the form is invalid, just make them fill it out again
+            form = MessageForm(request.POST)
+            return render(request, 'virtualstuddybuddy/composemessage.html', context={'form':form})
+
+        return HttpResponseRedirect('/virtualstudybuddy/inbox')
+    else:
+        form = MessageForm()
+        if target:
+            form = MessageForm(initial = {'recipient_username':target})
+        return render(request, 'virtualstuddybuddy/composemessage.html', context = {"form": form})
+
+def delete_message(request, pk):
+    message = get_object_or_404(UserMessage, pk=pk)
+    message.delete()
+
+    current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
+    current_inbox = current_user.userinbox
+    messages_to_user=current_inbox.usermessage_set.all()
+    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
