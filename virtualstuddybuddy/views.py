@@ -255,7 +255,8 @@ def my_inbox(request):
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
     current_inbox = current_user.userinbox
     messages_to_user=current_inbox.usermessage_set.all()
-    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
+    messages_from_user=current_user.usermessage_set.all() # Reminder: I didn't define an outbox, just simply established a foreign key relationship
+    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user, 'outgoingMessages': messages_from_user})
 
 def compose_message(request, target=None):
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
