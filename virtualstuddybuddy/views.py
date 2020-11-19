@@ -285,8 +285,4 @@ def compose_message(request, target=None):
 def delete_message(request, pk):
     message = get_object_or_404(UserMessage, pk=pk)
     message.delete()
-
-    current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
-    current_inbox = current_user.userinbox
-    messages_to_user=current_inbox.usermessage_set.all()
-    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
+    return HttpResponseRedirect('/virtualstudybuddy/inbox')
