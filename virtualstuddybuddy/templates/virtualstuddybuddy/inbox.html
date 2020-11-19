@@ -112,6 +112,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-3">
                         <span class="">{{ message.sender_username }}</span>
                         <a type="button" class="btn btn-dark btn-sm" href="{% url 'deletemessage' pk=message.id %}">Delete Message</a>
+                        <a type="button" class="btn btn-dark btn-sm" href="{% url 'composemessage' target=message.sender_username %}">Reply</a>
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-3">

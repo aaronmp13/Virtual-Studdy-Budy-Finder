@@ -188,6 +188,10 @@ def leavegroup(request, pk):
     current_group = get_object_or_404(StudyGroup, pk=pk)
     current_group.profiles.remove(current_user)
     current_group.save()
+
+    if current_group.profiles.count()==0:
+        current_group.delete()
+
     return HttpResponseRedirect('/virtualstudybuddy/mygroups')
 
 def meetgroup(request, pk):
