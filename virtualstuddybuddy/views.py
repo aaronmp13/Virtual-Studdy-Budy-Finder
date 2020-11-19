@@ -74,7 +74,7 @@ def editProfile(request):
             return render(request, 'virtualstuddybuddy/signup.html', {'form':form})
         return HttpResponseRedirect('/virtualstudybuddy/profile/'+str(p.id)+'/')
     else:
-        initialDict = {f.name:getattr(p, f.name) for f in Profile._meta.get_fields() if f.name!="studygroup"}
+        initialDict = {f.name:getattr(p, f.name) for f in Profile._meta.get_fields() if f.name!="studygroup" and f.name!="usermessage"}
         form = ProfileForm(initial=initialDict)
         return render(request, 'virtualstuddybuddy/editProfile.html', context = {"form": form})
 
