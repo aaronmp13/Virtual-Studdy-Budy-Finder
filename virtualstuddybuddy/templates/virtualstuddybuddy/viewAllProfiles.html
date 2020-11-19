@@ -83,19 +83,26 @@
         <h3 class="find_friends" style="text-align:center">Find friends to study with!</h3>
         <hr>
 
-        <div class="container-fluid">
+        <div class="container-fluid centerElementsOnly">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
             
-                <div class="form-row">
-                    <div class="form-group signupForms col-md-4 mb-0 white-text">
+                <div class="row">
+
+                    <div class="signupForms col-md-4 mb-0 white-text">
+                        <label class="white-text" for="profile-search">Search 🔍</label>
                         {{ form.query|as_crispy_field:"bootstrap4" }}
                     </div>
+                        <button type="submit" class="btn btn-outline-light">Search</button>
 
-                    <div class="centerElementsOnly">
-                        <button type="submit" class="btn btn-outline-dark btn-sm">Search</button>
-                    </div>
-                </div>                        
+
+
+
+
+
+
+                </div>
+                <hr>
             </form>
         </div>
 
