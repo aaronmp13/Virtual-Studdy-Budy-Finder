@@ -86,7 +86,7 @@ class MessageForm(ModelForm):
         return data
 
 class GroupMessageForm(Form): #honestly not sure if its good to make a Django form in this case but whatever
-    message =  CharField(max_length = 100, label = "Message", widget=Textarea(attrs={'rows': 1,'placeholder': 'Awesome CS Group is meeting on Tuesday at 5PM, wanna join?'}))
+    message =  CharField(max_length = 100, label = "Message", widget=Textarea(attrs={'rows': 1,'placeholder': "When do you guys want to meet up for that project due in 30 minutes?"}))
 
 class SearchBarForm(Form): 
  

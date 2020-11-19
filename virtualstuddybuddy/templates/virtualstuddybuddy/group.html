@@ -25,54 +25,54 @@
 
 <body>
 
-        <nav class="navbar navbar-expand-lg navbar-dark container-fluid">
-            <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        {% if user.is_authenticated %}
-{#                            <a class="nav-link" href="{% url 'logout' %}">Signout ({{ user.username }})</a>#}
-                            <!--google login-->
-                        {% else %}
-                            <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
-                        {% endif %}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
-                    </li>
+<nav class="navbar navbar-expand-lg navbar-dark container-fluid">
+    <a class="navbar-brand" href="/virtualstudybuddy">VirtualStudyBuddy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                {% if user.is_authenticated %}
+                    {#                            <a class="nav-link" href="{% url 'logout' %}">Signout ({{ user.username }})</a>#}
+                    <!--google login-->
+                {% else %}
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'viewProfiles' %}">Find Buddies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/virtualstudybuddy/mygroups">My Groups</a>
+            </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
-                    </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/virtualstudybuddy/allgroups">All Groups</a>
+            </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/virtualstudybuddy/inbox">Inbox</a>
-                        <!-- this should just direct people to their profile page-->
-                    </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/virtualstudybuddy/inbox">Inbox</a>
+                <!-- this should just direct people to their profile page-->
+            </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
-                        <!-- this should just direct people to their profile page-->
-                    </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">View Profile</a>
+                <!-- this should just direct people to their profile page-->
+            </li>
 
-                    <li class="nav-item">
-                        {% if user.is_authenticated %}
-                            <a class="nav-link" href="{% url 'logout' %}">Signout ({{ user.username }})</a>
-                        {% else %}
-{#                            <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>#}
-                        {% endif %}
-                    </li>
+            <li class="nav-item">
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'logout' %}">Signout ({{ user.username }})</a>
+                {% else %}
+                    {#                            <a class="nav-link" href="{% provider_login_url 'google' %}">Sign in</a>#}
+                {% endif %}
+            </li>
 
-                </ul>
-            </div>
-        </nav>
+        </ul>
+    </div>
+</nav>
 
 <div class="profile_page">
     <h1 class="centered">{{ studygroup.group_name }} Group Page </h1>
@@ -112,64 +112,67 @@
         </div>
         <hr>
     </div>
-    <hr>
 
+    <hr>
+    <h2 class="centerElementsOnly blueviolettext padding_top enbolden"> Group Chat </h2>
     {% if inGroup %}
         {% if allMessages %}
-        <div class="row">
+            <div class="container-fluid">
+            <div class="row centerElementsOnly">
 
-            <div class="col-lg-3 col-md-4 col-sm-4">
-                <h4>Sender Username</h4>
+                <div class="col-lg-3 col-md-4 col-sm-4">
+                    <h4 class="blueviolettext">Sender</h4>
 
-            </div>
-
-            <div class="col-lg-5 col-md-4 col-sm-4">
-                <h4>Message</h4>
-            </div>
-
-        </div>
-
-        <hr>
-
-
-        {% for message in allMessages %}
-            <div class="row">
-
-                <div class="col-lg-3 col-md-3 col-sm-3">
-                    <span class="">{{ message.sender_username }}</span>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <span>{{ message.message }}</span>
+                <div class="col-lg-9 col-md-4 col-sm-4">
+                    <h4 class="blueviolettext">Message</h4>
                 </div>
+
             </div>
 
             <hr>
 
-        {% endfor %}
+
+            {% for message in allMessages %}
+                <div class="row centerElementsOnly">
+
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span class="enbolden">@{{ message.sender_username }}</span>
+                    </div>
+
+                    <div class="col-lg-9 col-md-6 col-sm-6">
+                        <span class="enbolden">{{ message.message }}</span>
+                    </div>
+                </div>
+
+                <hr>
+
+            {% endfor %}
 
         {% else %}
             <p>Nobody has messaged you yet!</p>
         {% endif %}
+        </div>
 
-            <div class="profile_page">
-                <div class="container-fluid">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                    
-                        <div class="form-row">
-                            <div class="form-group signupForms col-md-6 mb-0">
-                                {{ form.message|as_crispy_field:"bootstrap4" }}
-                            </div>
+        <div class="profile_page centerElementsOnly">
+            <div class="container-fluid centerElementsOnly">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
 
-                            <div class="centerElementsOnly">
-                                <button type="submit" class="btn btn-outline-dark btn-sm">Submit Message</button>
-                            </div>
-                        </div>                        
-                    </form>
-                </div>
+                    <div class="form-row">
+                        <div class="form-group signupForms col-md-12 mb-0">
+                            {{ form.message|as_crispy_field:"bootstrap4" }}
+                        </div>
+
+                        <div class="centerElementsOnly">
+                            <button type="submit" class="btn btn-outline-success">Send</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
+        </div>
+    <hr>
     {% endif %}
     {% if inGroup %}
         <div class="centerElementsOnly">
