@@ -1,5 +1,5 @@
 # project-2-08
-project-2-08 created by GitHub Classroom
+Virtual Studdy Buddy Team 2-08
 
 Virtual Study buddy is an application to help you find people to study with during the strange times of the pandemic. 
 To effectively use the application one should sign in with their google account and create a user profile. After creating
