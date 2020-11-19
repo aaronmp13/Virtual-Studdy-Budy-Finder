@@ -290,7 +290,7 @@ class FindBuddiesTests(TestCase):
 	# def test_HTML(self):
 	# 	self.assertEqual(str(self.response1.context['matchee']), "test    0   2023")
 	# 	self.assertEqual(str(self.response1.context['matcher']), "test2    0   2023")
-	# 	# print("response1",self.response1.wsgi_request)
-	# 	#self.assertEqual(str(self.response3.wsgi_request), "<WSGIRequest: GET '/virtualstudybuddy/editProfile/'>")
+	# 	print("response1",self.response1.wsgi_request)
+	# 	self.assertEqual(str(self.response3.wsgi_request), "<WSGIRequest: GET '/virtualstudybuddy/editProfile/'>")
 	# 	self.assertTemplateUsed(self.response1, 'virtualstuddybuddy/match.html')
 	# 	self.assertEqual(self.response1.status_code, 200)
