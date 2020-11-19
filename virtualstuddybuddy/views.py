@@ -269,8 +269,18 @@ def compose_message(request, target=None):
             recipient=Profile.objects.all().filter(username=g.recipient_username)[0]
             recipient_inbox=recipient.userinbox
             g.save()
-            recipient_inbox.usermessage_set.add(g)
 
+            sender_username=current_user.username
+            subject=g.subject
+            recipient_username=g.recipient_username
+            message=g.message
+
+            x=UserMessage(sender_username=sender_username, subject=subject, recipient_username=recipient_username,
+                          message=message, userinbox=None)
+            x.save()
+
+            recipient_inbox.usermessage_set.add(g)
+            current_user.usermessage_set.add(x) #important distinction here, this is the outbox (no model for outbox like there is for inbox)
         else: #If the form is invalid, just make them fill it out again
             form = MessageForm(request.POST)
             return render(request, 'virtualstuddybuddy/composemessage.html', context={'form':form})
