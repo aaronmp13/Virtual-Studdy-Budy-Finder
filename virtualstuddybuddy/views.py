@@ -55,10 +55,14 @@ def signup(request): #How we handle signups and logins
             return render(request, 'virtualstuddybuddy/signup.html', {'form':form}) 	#Direct them to the signup form
 
 def logout_view(request):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     logout(request)
     return HttpResponseRedirect('/virtualstudybuddy')
 
 def editProfile(request):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     p = Profile.objects.all().filter(username=request.user.get_username())[0]
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance = p)
@@ -79,6 +83,8 @@ def editProfile(request):
         return render(request, 'virtualstuddybuddy/editProfile.html', context = {"form": form})
 
 def get_profiles(request):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     allProfiles = Profile.objects.all()
     query = ""
     if request.method=='POST':
@@ -101,6 +107,8 @@ def get_profiles(request):
     return render(request, 'virtualstuddybuddy/viewAllProfiles.html', context={'allProfiles': allProfiles, 'form': form})
 
 def manual_match(request, pk): #FIX THIS
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     matcher = Profile.objects.all().filter(username=request.user.get_username())[0]
 
     matchee=get_object_or_404(Profile, pk=pk)
@@ -132,6 +140,8 @@ def all_groups(request): #Shows all the groups that the current user is NOT in
     return render(request,'virtualstuddybuddy/allGroups.html', context={'currentUser': current_user, 'groups': groups_not_in})
 
 def join_group(request, pk):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
     group_to_join= get_object_or_404(StudyGroup, pk=pk)
     group_to_join.profiles.add(current_user)
@@ -142,6 +152,8 @@ def join_group(request, pk):
 # 	template_name = 'virtualstuddybuddy/group.html'
 
 def group_page(request, pk):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     current_group=get_object_or_404(StudyGroup, pk=pk)
     current_user=Profile.objects.all().filter(username=request.user.get_username())[0]
     in_group=False
@@ -164,6 +176,8 @@ def group_page(request, pk):
     return render(request, 'virtualstuddybuddy/group.html', context={'studygroup': current_group, 'inGroup': in_group, 'allMessages': messages_to_group, 'form':form})
 
 def creategroup(request):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
     if request.method == 'POST': #If a person filled out the form
         form = GroupForm(request.POST)
@@ -184,6 +198,8 @@ def creategroup(request):
         return render(request, 'virtualstuddybuddy/creategroup.html', context = {"form": form})
 
 def editgroup(request, pk):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
     current_group = get_object_or_404(StudyGroup, pk=pk)
     if request.method == 'POST': #If a person filled out the form
@@ -202,6 +218,8 @@ def editgroup(request, pk):
         return render(request, 'virtualstuddybuddy/creategroup.html', context = {"form": form})
 
 def leavegroup(request, pk):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
     current_group = get_object_or_404(StudyGroup, pk=pk)
     current_group.profiles.remove(current_user)
@@ -213,6 +231,8 @@ def leavegroup(request, pk):
     return HttpResponseRedirect('/virtualstudybuddy/mygroups')
 
 def meetgroup(request, pk):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     current_group = get_object_or_404(StudyGroup, pk=pk)
     if request.method == 'POST': #If a person filled out the form
         form = MeetForm(request.POST)
@@ -259,6 +279,8 @@ def my_inbox(request):
     return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user, 'outgoingMessages': messages_from_user})
 
 def compose_message(request, target=None):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
 
     if request.method == 'POST': #Message Sent
@@ -294,6 +316,8 @@ def compose_message(request, target=None):
         return render(request, 'virtualstuddybuddy/composemessage.html', context = {"form": form})
 
 def delete_message(request, pk):
+    if not request.user.is_authenticated: #redirects to login if they haven't done that yet
+        return HttpResponseRedirect('/virtualstudybuddy/accounts/google/login/')
     message = get_object_or_404(UserMessage, pk=pk)
     message.delete()
     return HttpResponseRedirect('/virtualstudybuddy/inbox')
