@@ -56,7 +56,7 @@ class MeetForm(Form):
 class MessageForm(ModelForm):
     class Meta:
         model = UserMessage
-        fields=['subject', 'recipient_username', 'message']
+        fields = ['subject', 'recipient_username', 'message']
 
         labels = {
             'recipient_username': "Recipient Username",
@@ -67,7 +67,8 @@ class MessageForm(ModelForm):
         widgets = {
             'recipient_username': TextInput(attrs={'placeholder': 'Type in a username, without the @'}),
             'subject': TextInput(attrs={'placeholder': 'Study Session on Tuesday'}),
-            'message': Textarea(attrs={'rows': 3,'placeholder': 'Awesome CS Group is meeting on Tuesday at 5PM, wanna join?'}),
+            'message': Textarea(
+                attrs={'rows': 3, 'placeholder': 'Awesome CS Group is meeting on Tuesday at 5PM, wanna join?'}),
         }
 
     def clean_recipient_username(self):

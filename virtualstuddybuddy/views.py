@@ -56,9 +56,17 @@ def compose_message(request, target=None):
             recipient_inbox=recipient.userinbox
             g.save()
 
-            
+            sender_username=current_user.username
+            subject=g.subject
+            recipient_username=g.recipient_username
+            message=g.message
+
+            x=UserMessage(sender_username=sender_username, subject=subject, recipient_username=recipient_username,
+                          message=message, userinbox=None)
+            x.save()
+
             recipient_inbox.usermessage_set.add(g)
-            current_user.usermessage_set.add(g) #important distinction here, this is the outbox (no model for outbox like there is for inbox)
+            current_user.usermessage_set.add(x) #important distinction here, this is the outbox (no model for outbox like there is for inbox)
         else: #If the form is invalid, just make them fill it out again
             form = MessageForm(request.POST)
             return render(request, 'virtualstuddybuddy/composemessage.html', context={'form':form})
@@ -73,12 +81,8 @@ def compose_message(request, target=None):
 def delete_message(request, pk):
     message = get_object_or_404(UserMessage, pk=pk)
     message.delete()
-
-    current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
-    current_inbox = current_user.userinbox
-    messages_to_user=current_inbox.usermessage_set.all()
     return HttpResponseRedirect('/virtualstudybuddy/inbox')
-    
+
 
 def signup(request): #How we handle signups and logins
     if not request.user.is_authenticated: #redirects to login if they haven't done that yet
