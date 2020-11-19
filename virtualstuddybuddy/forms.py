@@ -47,10 +47,10 @@ class MeetForm(Form):
         attrs={'type': 'date', 'placeholder': 'mm/dd/yyyy'}
     ))
     startTime = TimeField(label="Start Time", widget=TextInput(
-        attrs={'type': 'time', 'placeholder': 'hh:mm AM or hh:mm PM'}
+        attrs={'type': 'time', 'placeholder': 'hh:mm in military time'}
     ))
     endTime = TimeField(label="End Time", widget=TextInput(
-        attrs={'type': 'time', 'placeholder': 'hh:mm AM or hh:mm PM'}))
+        attrs={'type': 'time', 'placeholder': 'hh:mm in military time'}))
     
     def clean_date(self):
         date = self.cleaned_data['date']
