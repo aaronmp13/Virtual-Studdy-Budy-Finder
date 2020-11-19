@@ -54,3 +54,5 @@ docs/_build/
 
 .vs/
 .vscode/
+*.pyc
+*.xml
