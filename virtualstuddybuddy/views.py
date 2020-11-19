@@ -40,7 +40,8 @@ def my_inbox(request):
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
     current_inbox = current_user.userinbox
     messages_to_user=current_inbox.usermessage_set.all()
-    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
+    messages_from_user=current_user.usermessage_set.all() # Reminder: I didn't define an outbox, just simply established a foreign key relationship
+    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user, 'outgoingMessages': messages_from_user})
 
 def compose_message(request, target=None):
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
@@ -54,8 +55,10 @@ def compose_message(request, target=None):
             recipient=Profile.objects.all().filter(username=g.recipient_username)[0]
             recipient_inbox=recipient.userinbox
             g.save()
-            recipient_inbox.usermessage_set.add(g)
 
+            
+            recipient_inbox.usermessage_set.add(g)
+            current_user.usermessage_set.add(g) #important distinction here, this is the outbox (no model for outbox like there is for inbox)
         else: #If the form is invalid, just make them fill it out again
             form = MessageForm(request.POST)
             return render(request, 'virtualstuddybuddy/composemessage.html', context={'form':form})
@@ -74,7 +77,7 @@ def delete_message(request, pk):
     current_user = Profile.objects.all().filter(username=request.user.get_username())[0]
     current_inbox = current_user.userinbox
     messages_to_user=current_inbox.usermessage_set.all()
-    return render(request, "virtualstuddybuddy/inbox.html", context={'allMessages': messages_to_user})
+    return HttpResponseRedirect('/virtualstudybuddy/inbox')
     
 
 def signup(request): #How we handle signups and logins
