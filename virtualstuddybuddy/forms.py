@@ -1,7 +1,7 @@
 from django.forms import *
 from .models import *
 from django.utils.translation import gettext_lazy as _
-
+import datetime
 
 class ProfileForm(ModelForm):
     class Meta:
@@ -51,6 +51,14 @@ class MeetForm(Form):
     ))
     endTime = TimeField(label="End Time", widget=TextInput(
         attrs={'type': 'time'}))
+    
+    def clean_date(self):
+        date = self.cleaned_data['date']
+        curr_date = datetime.datetime.now().date()
+        if date < curr_date:
+            raise ValidationError("This date is in the past!")
+        else:
+            return date
 
 
 class MessageForm(ModelForm):
@@ -76,3 +84,11 @@ class MessageForm(ModelForm):
         if not Profile.objects.all().filter(username=data).exists():
             raise ValidationError("Username does not exist")
         return data
+
+class GroupMessageForm(Form): #honestly not sure if its good to make a Django form in this case but whatever
+    message =  CharField(max_length = 100, label = "Message", widget=Textarea(attrs={'rows': 1,'placeholder': 'Awesome CS Group is meeting on Tuesday at 5PM, wanna join?'}))
+
+class SearchBarForm(Form): 
+ 
+    query =  CharField(max_length = 100, label = "", required = False,
+        widget=TextInput(attrs={'placeholder': 'Biology Female 2023', 'id':'profile-search'}))

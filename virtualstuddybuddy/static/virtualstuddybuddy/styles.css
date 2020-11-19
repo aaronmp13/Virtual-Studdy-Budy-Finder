@@ -8,6 +8,10 @@
     margin-bottom: 10%;
 }
 
+.white-text{
+    color:white;
+}
+
 h1 {
     font-family: "Montserrat";
     font-size: 3.5rem;

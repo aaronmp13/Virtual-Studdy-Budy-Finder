@@ -106,6 +106,9 @@
                     {% if user.username == profile.username %}
                         <a type="button" class="btn btn-dark btn-lg editBtn" href="{% url 'editProfile' %}">Edit
                             Profile</a>
+                    {% else %}
+                        <a type="button" class="btn btn-dark btn-lg editBtn" href="{% url 'composemessage' target=profile.username %}">
+                            Message User </a>
                     {% endif %}
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12 desc">
