@@ -152,4 +152,4 @@ class GroupMessage(models.Model):
     groupinbox=models.ForeignKey(GroupInbox, null=True, on_delete= models.SET_NULL)
 
     def __str__(self):
-        return self.sender_username + " to " + self.recipient_group + " Subject: " + self.subject
+        return self.sender_username + " to " + self.recipient_group

@@ -1,7 +1,7 @@
 from django.forms import *
 from .models import *
 from django.utils.translation import gettext_lazy as _
-
+import datetime
 
 class ProfileForm(ModelForm):
     class Meta:
@@ -51,6 +51,14 @@ class MeetForm(Form):
     ))
     endTime = TimeField(label="End Time", widget=TextInput(
         attrs={'type': 'time'}))
+    
+    def clean_date(self):
+        date = self.cleaned_data['date']
+        curr_date = datetime.datetime.now().date()
+        if date < curr_date:
+            raise ValidationError("This date is in the past!")
+        else:
+            return date
 
 
 class MessageForm(ModelForm):
