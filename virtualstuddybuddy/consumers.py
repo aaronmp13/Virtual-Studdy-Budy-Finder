@@ -1,3 +1,4 @@
+#Credit to https://channels.readthedocs.io/en/stable/tutorial/part_2.html, although we never ended up using this in our app
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 

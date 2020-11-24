@@ -260,6 +260,9 @@ def meetgroup(request, pk):
         form = MeetForm()
         return render(request, 'virtualstuddybuddy/meetgroup.html', context = {"form": form})
 
+
+
+# Credit to https://channels.readthedocs.io/en/stable/tutorial/part_2.html for chat server code, although we never ended up using it
 def chatindex(request):
     return render(request, 'virtualstuddybuddy/chatindex.html')
 
