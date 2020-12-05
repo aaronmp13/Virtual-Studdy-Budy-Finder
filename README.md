@@ -16,3 +16,4 @@ want or view messages that you may have already sent from the Find Buddies tab. 
 the person's username as you need to know it before you send the message. Lastly is the view profile tab. This tab allows you to see
 your profile and edit it to make any changes that you may want to make. 
 
+UVA CS 3240.
